@@ -11,8 +11,10 @@ using System.IO;
 
 namespace WinsFormsAppPicMix
 {
+    
     public partial class Form1 : Form
     {
+        public extern Image mthpcimix(Image inipic, Image logo, Image mjlogo);
         static int i = 0;
         private System.Windows.Forms.NotifyIcon notifyicon1;
         private System.Windows.Forms.ContextMenu contextmenu1;
@@ -116,6 +118,170 @@ namespace WinsFormsAppPicMix
             {
                 return;
             }
+
+            if (e.FullPath.ToString().Contains("Arnold"))
+            {
+                Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                Image logo = Image.FromFile("final_arnold");
+                Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                Image mixpic = mthpicmix(ori_pic, logo, logo_mj);
+            }
+            else if (e.FullPath.ToString().Contains("Artitec"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Bachmann"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("BLI"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Busch"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Digitrax"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Electrotren"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("ESU"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Faller"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Fleischmann"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Greenmax"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Hornby"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Humbrol"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Jouef"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Kadee"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Kato"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Kibri"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("LGB"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Lima"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Marklin"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Micro Structures"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Model Power"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Noch"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Peco"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Preiser"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Rivarossi"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Roco"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("SceneMaster"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Spectrum"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Tamiya"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Tomix"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Tomytec"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("TouchRail"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Trix"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Trix"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Viessmann"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Vollmer"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Walthers"))
+            {
+
+            }
+            else if (e.FullPath.ToString().Contains("Woodland"))
+            {
+
+            }
+            else
+            {
+                MessageBox.Show("Fail. No matching file");
+            }
             //Console.WriteLine($"Changed: {e.FullPath}");            
             //Console.WriteLine("ONCHANGE");
             //Console.WriteLine("i:" + i.ToString());
@@ -162,7 +328,7 @@ namespace WinsFormsAppPicMix
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {
+        {            
             try
             {
                 //針對Arnold LOGO 去調整
@@ -172,17 +338,16 @@ namespace WinsFormsAppPicMix
                 Image cut_area = ori_bmp.Clone(logo_area, ori_arnold.PixelFormat);
                 cut_area.Save("final_arnold.jpg");
 
-                //mjmodel websiteImage ori_woodland = Image.FromFile(@"D:\阿立圓山\LOGO\Woodland.png");
+                //mjmodel websiteImage ori_woodland
                 ori_bmp = new System.Drawing.Bitmap(ori_arnold);
                 logo_area = new System.Drawing.Rectangle(3000, 1500, 1200, 400);
                 cut_area = ori_bmp.Clone(logo_area, ori_arnold.PixelFormat);
                 cut_area.Save("final_mjmodel.jpg");
 
-                //Artiec 
+                //Artitec 
                 Image ori_artitec = Image.FromFile(@"D:\阿立圓山\LOGO\Artitec.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_artitec);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                //Image final_artitec = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_artitec.PixelFormat);
                 cut_area.Save("final_artitec.jpg");
 
@@ -190,7 +355,6 @@ namespace WinsFormsAppPicMix
                 Image ori_bachmann = Image.FromFile(@"D:\阿立圓山\LOGO\Bachmann.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_bachmann);
                 logo_area = new System.Drawing.Rectangle(50, 50, 600, 600);
-                // Image final_bachmann = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_bachmann.PixelFormat);
                 cut_area.Save("final_bachmann.jpg");
 
@@ -198,7 +362,6 @@ namespace WinsFormsAppPicMix
                 Image ori_bli = Image.FromFile(@"D:\阿立圓山\LOGO\BLI.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_bli);
                 logo_area = new System.Drawing.Rectangle(50, 50, 500, 350);
-                // Image final_bli = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_bli.PixelFormat);
                 cut_area.Save("final_bli.jpg");
 
@@ -206,7 +369,6 @@ namespace WinsFormsAppPicMix
                 Image ori_brawa = Image.FromFile(@"D:\阿立圓山\LOGO\Brawa.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_brawa);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                //Image final_brawa = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_brawa.PixelFormat);
                 cut_area.Save("final_brawa.jpg");
 
@@ -214,7 +376,6 @@ namespace WinsFormsAppPicMix
                 Image ori_busch = Image.FromFile(@"D:\阿立圓山\LOGO\Busch.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_busch);
                 logo_area = new System.Drawing.Rectangle(50, 50, 450, 450);
-                // Image final_busch = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_busch.PixelFormat);
                 cut_area.Save("final_busch.jpg");
 
@@ -222,7 +383,6 @@ namespace WinsFormsAppPicMix
                 Image ori_digitrax = Image.FromFile(@"D:\阿立圓山\LOGO\Digitrax.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_digitrax);
                 logo_area = new System.Drawing.Rectangle(50, 50, 700, 300);
-                // Image final_digitrax = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_digitrax.PixelFormat);
                 cut_area.Save("final_digitrax.jpg");
 
@@ -230,7 +390,6 @@ namespace WinsFormsAppPicMix
                 Image ori_electrotren = Image.FromFile(@"D:\阿立圓山\LOGO\Electrotren.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_electrotren);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1300, 300);
-                // Image final_electrotren = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_electrotren.PixelFormat);
                 cut_area.Save("final_electrotren.jpg");
 
@@ -238,7 +397,6 @@ namespace WinsFormsAppPicMix
                 Image ori_esu = Image.FromFile(@"D:\阿立圓山\LOGO\ESU.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_esu);
                 logo_area = new System.Drawing.Rectangle(50, 50, 400, 400);
-                // Image final_esu = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_esu.PixelFormat);
                 cut_area.Save("final_esu.jpg");
 
@@ -246,7 +404,6 @@ namespace WinsFormsAppPicMix
                 Image ori_faller = Image.FromFile(@"D:\阿立圓山\LOGO\Faller.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_faller);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1000, 350);
-                // Image final_faller = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_faller.PixelFormat);
                 cut_area.Save("final_faller.jpg");
 
@@ -254,7 +411,6 @@ namespace WinsFormsAppPicMix
                 Image ori_fleischmann = Image.FromFile(@"D:\阿立圓山\LOGO\Fleischmann.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_fleischmann);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1100, 300);
-                // Image final_fleischmann = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_fleischmann.PixelFormat);
                 cut_area.Save("final_fleischmann.jpg");
 
@@ -262,7 +418,6 @@ namespace WinsFormsAppPicMix
                 Image ori_greenmax = Image.FromFile(@"D:\阿立圓山\LOGO\Greenmax.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_greenmax);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
-                // Image final_greenmax = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_greenmax.PixelFormat);
                 cut_area.Save("final_greenmax.jpg");
 
@@ -270,7 +425,6 @@ namespace WinsFormsAppPicMix
                 Image ori_hornby = Image.FromFile(@"D:\阿立圓山\LOGO\Hornby.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_hornby);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1000, 350);
-                // Image final_hornby = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_hornby.PixelFormat);
                 cut_area.Save("final_hornby.jpg");
 
@@ -278,7 +432,6 @@ namespace WinsFormsAppPicMix
                 Image ori_humbrol = Image.FromFile(@"D:\阿立圓山\LOGO\Humbrol.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_humbrol);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
-                // Image final_humbrol = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_humbrol.PixelFormat);
                 cut_area.Save("final_humbrol.jpg");
 
@@ -286,7 +439,6 @@ namespace WinsFormsAppPicMix
                 Image ori_jouef = Image.FromFile(@"D:\阿立圓山\LOGO\Jouef.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_jouef);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                //Image final_jouef = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_jouef.PixelFormat);
                 cut_area.Save("final_jouef.jpg");
 
@@ -294,7 +446,6 @@ namespace WinsFormsAppPicMix
                 Image ori_kadee = Image.FromFile(@"D:\阿立圓山\LOGO\Kadee.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_kadee);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                //Image final_kadee = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_kadee.PixelFormat);
                 cut_area.Save("final_kadee.jpg");
 
@@ -302,7 +453,6 @@ namespace WinsFormsAppPicMix
                 Image ori_kato = Image.FromFile(@"D:\阿立圓山\LOGO\Kato.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_kato);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                //Image final_kato = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_kato.PixelFormat);
                 cut_area.Save("final_kato.jpg");
 
@@ -310,7 +460,6 @@ namespace WinsFormsAppPicMix
                 Image ori_kibri = Image.FromFile(@"D:\阿立圓山\LOGO\kibri.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_kibri);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                // Image final_kibri = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_kibri.PixelFormat);
                 cut_area.Save("final_kibri.jpg");
 
@@ -318,7 +467,6 @@ namespace WinsFormsAppPicMix
                 Image ori_lgb = Image.FromFile(@"D:\阿立圓山\LOGO\LGB.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_lgb);
                 logo_area = new System.Drawing.Rectangle(50, 50, 500, 400);
-                //Image final_lgb = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_lgb.PixelFormat);
                 cut_area.Save("final_lgb.jpg");
 
@@ -326,7 +474,6 @@ namespace WinsFormsAppPicMix
                 Image ori_lima = Image.FromFile(@"D:\阿立圓山\LOGO\Lima.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_lima);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                //Image final_lima = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_lima.PixelFormat);
                 cut_area.Save("final_lima.jpg");
 
@@ -334,7 +481,6 @@ namespace WinsFormsAppPicMix
                 Image ori_marklin = Image.FromFile(@"D:\阿立圓山\LOGO\marklin.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_marklin);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                // Image final_marklin = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_marklin.PixelFormat);
                 cut_area.Save("final_marklin.jpg");
 
@@ -342,7 +488,6 @@ namespace WinsFormsAppPicMix
                 Image ori_microstructure = Image.FromFile(@"D:\阿立圓山\LOGO\Micro Structures.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_microstructure);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1200, 300);
-                // Image final_microstructure = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_microstructure.PixelFormat);
                 cut_area.Save("final_microstructure.jpg");
 
@@ -350,7 +495,6 @@ namespace WinsFormsAppPicMix
                 Image ori_modelpower = Image.FromFile(@"D:\阿立圓山\LOGO\Model Power.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_modelpower);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 350);
-                // Image final_modelpower = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_modelpower.PixelFormat);
                 cut_area.Save("final_modelpower.jpg");
 
@@ -358,7 +502,6 @@ namespace WinsFormsAppPicMix
                 Image ori_noch = Image.FromFile(@"D:\阿立圓山\LOGO\NOCH.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_noch);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                // Image final_noch = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_noch.PixelFormat);
                 cut_area.Save("final_noch.jpg");
 
@@ -366,7 +509,6 @@ namespace WinsFormsAppPicMix
                 Image ori_peco = Image.FromFile(@"D:\阿立圓山\LOGO\PECO.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_peco);
                 logo_area = new System.Drawing.Rectangle(50, 50, 500, 300);
-                //  Image final_peco = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_peco.PixelFormat);
                 cut_area.Save("final_peco.jpg");
 
@@ -374,7 +516,6 @@ namespace WinsFormsAppPicMix
                 Image ori_preiser = Image.FromFile(@"D:\阿立圓山\LOGO\Preiser.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_preiser);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                // Image final_preiser = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_preiser.PixelFormat);
                 cut_area.Save("final_preiser.jpg");
 
@@ -382,7 +523,6 @@ namespace WinsFormsAppPicMix
                 Image ori_rivarossi = Image.FromFile(@"D:\阿立圓山\LOGO\Rivarossi.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_rivarossi);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1200, 300);
-                // Image final_rivarossi = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_rivarossi.PixelFormat);
                 cut_area.Save("final_rivarossi.jpg");
 
@@ -390,7 +530,6 @@ namespace WinsFormsAppPicMix
                 Image ori_roco = Image.FromFile(@"D:\阿立圓山\LOGO\Roco.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_roco);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
-                // Image final_roco = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_roco.PixelFormat);
                 cut_area.Save("final_roco.jpg");
 
@@ -398,7 +537,6 @@ namespace WinsFormsAppPicMix
                 Image ori_scenemaster = Image.FromFile(@"D:\阿立圓山\LOGO\Scenemaster.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_scenemaster);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
-                // Image final_scenemaster = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_scenemaster.PixelFormat);
                 cut_area.Save("final_scenemaster.jpg");
 
@@ -406,7 +544,6 @@ namespace WinsFormsAppPicMix
                 Image ori_spectrum = Image.FromFile(@"D:\阿立圓山\LOGO\Spectrum.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_spectrum);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 350);
-                //  Image final_spectrum = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_spectrum.PixelFormat);
                 cut_area.Save("final_spectrum.jpg");
 
@@ -414,7 +551,6 @@ namespace WinsFormsAppPicMix
                 Image ori_tamiya = Image.FromFile(@"D:\阿立圓山\LOGO\Tamiya.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_tamiya);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 350);
-                // Image final_tamiya = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_tamiya.PixelFormat);
                 cut_area.Save("final_tamiya.jpg");
 
@@ -422,7 +558,6 @@ namespace WinsFormsAppPicMix
                 Image ori_tomix = Image.FromFile(@"D:\阿立圓山\LOGO\Tomix.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_tomix);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 250);
-                // Image final_tomix = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_tomix.PixelFormat);
                 cut_area.Save("final_tomix.jpg");
 
@@ -430,7 +565,6 @@ namespace WinsFormsAppPicMix
                 Image ori_tomytec = Image.FromFile(@"D:\阿立圓山\LOGO\Tomytec.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_tomytec);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 250);
-                //Image final_tomytec = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_tomytec.PixelFormat);
                 cut_area.Save("final_tomytec.jpg");
 
@@ -438,7 +572,6 @@ namespace WinsFormsAppPicMix
                 Image ori_touchrail = Image.FromFile(@"D:\阿立圓山\LOGO\Touchrail.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_touchrail);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
-                //Image final_touchrail = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_touchrail.PixelFormat);
                 cut_area.Save("final_touchrail.jpg");
 
@@ -446,7 +579,6 @@ namespace WinsFormsAppPicMix
                 Image ori_trix = Image.FromFile(@"D:\阿立圓山\LOGO\Trix.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_trix);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                //Image final_trix = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_trix.PixelFormat);
                 cut_area.Save("final_trix.jpg");
 
@@ -454,7 +586,6 @@ namespace WinsFormsAppPicMix
                 Image ori_viessmann = Image.FromFile(@"D:\阿立圓山\LOGO\Viessmann.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_viessmann);
                 logo_area = new System.Drawing.Rectangle(50, 50, 600, 400);
-                //Image final_viessmann = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_viessmann.PixelFormat);
                 cut_area.Save("final_viessmann.jpg");
 
@@ -462,7 +593,6 @@ namespace WinsFormsAppPicMix
                 Image ori_vollmer = Image.FromFile(@"D:\阿立圓山\LOGO\Vollmer.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_vollmer);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
-                //Image final_vollmer = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_vollmer.PixelFormat);
                 cut_area.Save("final_vollmer.jpg");
 
@@ -470,7 +600,6 @@ namespace WinsFormsAppPicMix
                 Image ori_walthers = Image.FromFile(@"D:\阿立圓山\LOGO\Walthers.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_walthers);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
-                //Image final_walthers = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_walthers.PixelFormat);
                 cut_area.Save("final_walthers.jpg");
 
@@ -478,11 +607,8 @@ namespace WinsFormsAppPicMix
                 Image ori_woodland = Image.FromFile(@"D:\阿立圓山\LOGO\Woodland.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_woodland);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                //Image final_woodland = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_woodland.PixelFormat);
                 cut_area.Save("final_woodland.jpg");
-
-
 
                 MessageBox.Show("Finish");
 
@@ -492,5 +618,10 @@ namespace WinsFormsAppPicMix
                 MessageBox.Show(ex.ToString());
             }
         }
+    }
+    public extern Image mthpcimix(Image i, Image j , Image k)
+    {
+        Image mix_img;
+        return mix_img;
     }
 }
