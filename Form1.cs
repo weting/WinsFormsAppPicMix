@@ -1460,7 +1460,8 @@ namespace WinsFormsAppPicMix
                 }
                 else
                 {
-                    MessageBox.Show("No matching item");
+                    //   MessageBox.Show("No matching item");
+                    Console.WriteLine("No matching item, " + e.FullPath.ToString());
                 }
             }
             catch (Exception ex)
