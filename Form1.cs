@@ -24,7 +24,10 @@ namespace WinsFormsAppPicMix
         static int height_pic = 0;
         static int width_logo = 0;
         static int height_logo = 0;
+        static int width_logomj = 0;
+        static int height_logomj = 0;
         static double zoom = 1.0;
+        static double zoom_mj = 1.0;
 
         public Form1()
         {
@@ -138,21 +141,33 @@ namespace WinsFormsAppPicMix
                     height_pic = ori_pic.Height;
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
 
                     //比較照片大小
-                    double widthinpic = width_pic * 0.3;
-                    double heightinpic = height_pic * 0.3;
-                    zoom = width_pic * 0.3 / width_logo;
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
 
-                    mix_pic = new Bitmap(width_pic, height_pic);
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic/ width_logomj;
 
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+                    Console.WriteLine("zoom:"+ zoom.ToString());
+                    Console.WriteLine("width_pic:" + width_pic.ToString());
+                    Console.WriteLine("width_logo:" + width_logo.ToString());
+                    Console.WriteLine("widthinpic:" + widthinpic.ToString());
+                    Console.WriteLine("widthinpicmj:" + widthinpicmj.ToString());
                     if (zoom > 1)
                     {
                         Graphics graphics = Graphics.FromImage(mix_pic);
                         
                         graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
                         graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
-                        graphics.DrawImage(logo, 0, 0, logo.Width, logo.Height);
+                        graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                        graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic-widthinpicmj), Convert.ToSingle(height_pic-heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                        mix_pic.Save("final_test.jpg");
                         /* 
                          RectangleF destinationRect = new RectangleF(0, 0, width_pic, height_pic);
                          RectangleF sourceRect = new RectangleF(0, 0, .75f * width_pic, .75f * height_pic);
@@ -161,8 +176,6 @@ namespace WinsFormsAppPicMix
                          graphics.Save();
                          ori_pic.Save("After.jpg");
                         */
-                        mix_pic.Save("final_test.jpg");
-
                     }
                     else
                     {
@@ -178,7 +191,8 @@ namespace WinsFormsAppPicMix
 
                         graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
                         graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
-                        graphics.DrawImage(logo, 0, 0, logo.Width, logo.Height);
+                        graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                        graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
                         mix_pic.Save("final_test.jpg");
                     }
 
