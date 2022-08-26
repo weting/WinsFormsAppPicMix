@@ -193,7 +193,7 @@ namespace WinsFormsAppPicMix
                         graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                         graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                         graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                        mix_pic.Save("final_test.jpg");
+                        mix_pic.Save("final_test_arnold.jpg");
                     }
 
                     //Bitmap ori_bmp = new System.Drawing.Bitmap();
@@ -204,162 +204,1259 @@ namespace WinsFormsAppPicMix
                 }
                 else if (e.FullPath.ToString().Contains("Artitec"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_artitec.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+                              
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_artitec.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("Bachmann"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_bachmann.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_bachmann.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("BLI"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_bli.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_bli.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("Brawa"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_brawa.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_brawa.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("Busch"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_busch.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_busch.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("Digitrax"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_digitrax.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_digitrax.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("Electrotren"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_electrotren.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_electrotren.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("ESU"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_esu.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_esu.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("Faller"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_faller.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_faller.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("Flesichmann"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_fleischmann.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_fleischmann.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("Greenmax"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_greenmax.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_greenmax.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("Hornby"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_hornby.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_hornby.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("Humbrol"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_humbrol.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_humbrol.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("Jouef"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_jouef.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_jouef.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("Kadee"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_kadee.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_kadee.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("Kato"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_kato.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_kato.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("Kibri"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_kibri.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_kibri.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("LGB"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_lgb.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_lgb.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("Lima"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_lima.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
+
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_lima.jpg");
 
                 }
                 else if (e.FullPath.ToString().Contains("Marklin"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_marklin.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_marklin.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("Micro Structures"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_microstructure.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_microstructure.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("Model Power"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_modelpower.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_modelpower.jpg");
                 }
-
                 else if (e.FullPath.ToString().Contains("Noch"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_noch.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_noch.jpg");
                 }
-
                 else if (e.FullPath.ToString().Contains("Peco"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_peco.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_peco.jpg");
                 }
-
                 else if (e.FullPath.ToString().Contains("Preiser"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_preiser.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_presier.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("Rivarossi"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_rivarossi.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_rivarossi.jpg");
                 }
-
                 else if (e.FullPath.ToString().Contains("Roco"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_roco.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_roco.jpg");
                 }
-
                 else if (e.FullPath.ToString().Contains("Scenemaster"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_scenemaster.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_scenemaster.jpg");
                 }
-
                 else if (e.FullPath.ToString().Contains("Spectrum"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_spectrum.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_spectrum.jpg");
                 }
-
                 else if (e.FullPath.ToString().Contains("Tamiya"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_tamiya.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_tamiya.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("Tomix"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_tomix.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
+
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_tomix.jpg");
 
                 }
                 else if (e.FullPath.ToString().Contains("Tomytec"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_tomytec.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_tomytec.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("TouchRail"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_touchrail.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_touchrail.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("Trix"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_trix.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_trix.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("Viessmann"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_viessmann.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_viessmann.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("Vollmer"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_vollmer.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_vollmer.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("Walthers"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_walthers.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_walthers.jpg");
                 }
                 else if (e.FullPath.ToString().Contains("Woodland"))
                 {
+                    Image ori_pic = Image.FromFile(e.FullPath.ToString());
+                    Image logo = Image.FromFile("final_woodland.jpg");
+                    Image logo_mj = Image.FromFile("final_mjmodel.jpg");
+                    Image mix_pic;
 
+                    width_pic = ori_pic.Width;
+                    height_pic = ori_pic.Height;
+                    width_logo = logo.Width;
+                    height_logo = logo.Height;
+                    width_logomj = logo_mj.Width;
+                    height_logomj = logo_mj.Height;
+
+                    //比較照片大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = height_pic * 0.2;
+                    zoom = width_pic / width_logo;
+
+                    double widthinpicmj = width_pic * 0.5;
+                    double heightinpicmj = height_pic * 0.2;
+                    zoom_mj = width_pic / width_logomj;
+
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
+                    Graphics graphics = Graphics.FromImage(mix_pic);
+
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_woodland.jpg");
                 }
                 else
                 {
