@@ -26,8 +26,18 @@ namespace WinsFormsAppPicMix
         static int height_logo = 0;
         static int width_logomj = 0;
         static int height_logomj = 0;
-        static double zoom = 1.0;
-        static double zoom_mj = 1.0;
+        static double zoom = 1;
+        static double zoom_mj = 1;
+        static string[] factory = { "Arnold", "Artitec", "Bachmann", "BLI",
+                                    "Brawa", "Busch", "Digitrax", "Electrotren",
+                                    "ESU","Faller","Flesichmann","Greenmax",
+                                    "Hornby","Humbrol","Jouef","Kadee",
+                                    "Kato","Kibri","LGB", "Lima",
+                                    "Marklin", "Micro Structures", "Model Power",
+                                    "Noch", "Peco", "Preiser", "Rivarossi",
+                                    "Roco", "Scenemaster", "Spectrum", "Tamiya",
+                                    "Tomix", "Tomytec", "TouchRail", "Trix",
+                                    "Viessmann", "Vollmer", "Walthers", "Woodland"};
 
         private static string path_save = @"D:\阿立圓山\picture\Test";
 
@@ -1886,6 +1896,8 @@ namespace WinsFormsAppPicMix
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            
+            
             try
             {
                 //針對Arnold LOGO 去調整
