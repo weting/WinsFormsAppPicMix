@@ -1896,8 +1896,17 @@ namespace WinsFormsAppPicMix
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
-            
+
+            //建立基本資料夾
+            try
+            {
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
             try
             {
                 //針對Arnold LOGO 去調整
