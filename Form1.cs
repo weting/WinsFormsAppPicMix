@@ -29,6 +29,8 @@ namespace WinsFormsAppPicMix
         static double zoom = 1.0;
         static double zoom_mj = 1.0;
 
+        private static string path_save = @"D:\阿立圓山\picture\Test";
+
         public Form1()
         {
 
@@ -136,71 +138,45 @@ namespace WinsFormsAppPicMix
                     Image logo = Image.FromFile("final_arnold.jpg");
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
-
+                    
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+                    
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+                    
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
+
+                    //寫入大小
                     double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic/ width_logomj;
+                    //原MJ 長寬比例
+                    float ruler_mj =width_logomj/height_logomj;
 
-                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
-                    Console.WriteLine("zoom:"+ zoom.ToString());
-                    Console.WriteLine("width_pic:" + width_pic.ToString());
-                    Console.WriteLine("width_logo:" + width_logo.ToString());
-                    Console.WriteLine("widthinpic:" + widthinpic.ToString());
-                    Console.WriteLine("widthinpicmj:" + widthinpicmj.ToString());
-                    if (zoom > 1)
-                    {
-                        Graphics graphics = Graphics.FromImage(mix_pic);
-                        
-                        graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
-                        graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
-                        graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
-                        graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic-widthinpicmj), Convert.ToSingle(height_pic-heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                        mix_pic.Save("final_test.jpg");
-                        /* 
-                         RectangleF destinationRect = new RectangleF(0, 0, width_pic, height_pic);
-                         RectangleF sourceRect = new RectangleF(0, 0, .75f * width_pic, .75f * height_pic);
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj *0.5 / ruler_mj;
 
-                         graphics.DrawImage(ori_pic, destinationRect, sourceRect, GraphicsUnit.Pixel);
-                         graphics.Save();
-                         ori_pic.Save("After.jpg");
-                        */
-                    }
-                    else
-                    {
-                        /*
-                        RectangleF destinationRect = new RectangleF(0, 0, width_pic, height_pic);
-                        RectangleF sourceRect = new RectangleF(0, 0, .75f * width_pic, .75f * height_pic);
-                        Graphics graphics = Graphics.FromImage(ori_pic);
-                        graphics.DrawImage(ori_pic, destinationRect, sourceRect, GraphicsUnit.Pixel);
-                        graphics.Save();                        
-                        ori_pic.Save("After.jpg");
-                        */
-                        Graphics graphics = Graphics.FromImage(mix_pic);
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));                                     
+                                     
+                    Graphics graphics = Graphics.FromImage(mix_pic);
 
-                        graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
-                        graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
-                        graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
-                        graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                        mix_pic.Save("final_test_arnold.jpg");
-                    }
-
-                    //Bitmap ori_bmp = new System.Drawing.Bitmap();
-                    //RectangleF destination = new RectangleF();
-                    //Rectangle logo_area = new System.Drawing.Rectangle(0, 0, , 300);
-                    // Image cut_area = ori_bmp.Clone(logo_area, ori_arnold.PixelFormat);
-                    //cut_area.Save("final_arnold.jpg");
+                    graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
+                    graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
+                    graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
+                    graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    mix_pic.Save("final_test_arnold.jpg");
+                    Console.WriteLine("Path:"+ path_save + e.Name.ToString().Remove(0, 6));
+                    Console.WriteLine("e.Name:" + e.Name.ToString());
+                    mix_pic.Save(path_save+e.Name.ToString().Remove(0,6));
                 }
                 else if (e.FullPath.ToString().Contains("Artitec"))
                 {
@@ -209,21 +185,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
                               
@@ -233,7 +219,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_artitec.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 7));
                 }
                 else if (e.FullPath.ToString().Contains("Bachmann"))
                 {
@@ -242,21 +229,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -266,7 +263,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_bachmann.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 8));
                 }
                 else if (e.FullPath.ToString().Contains("BLI"))
                 {
@@ -275,21 +273,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -299,7 +307,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_bli.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 3));
                 }
                 else if (e.FullPath.ToString().Contains("Brawa"))
                 {
@@ -308,21 +317,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -332,7 +351,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_brawa.jpg");
+                   
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 5));
                 }
                 else if (e.FullPath.ToString().Contains("Busch"))
                 {
@@ -341,21 +361,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -365,7 +395,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_busch.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 5));
                 }
                 else if (e.FullPath.ToString().Contains("Digitrax"))
                 {
@@ -374,21 +405,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -398,7 +439,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_digitrax.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 8));
                 }
                 else if (e.FullPath.ToString().Contains("Electrotren"))
                 {
@@ -407,21 +449,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -431,7 +483,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_electrotren.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 11));
                 }
                 else if (e.FullPath.ToString().Contains("ESU"))
                 {
@@ -440,21 +493,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -464,7 +527,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_esu.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 3));
                 }
                 else if (e.FullPath.ToString().Contains("Faller"))
                 {
@@ -473,21 +537,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -497,7 +571,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_faller.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 6));
                 }
                 else if (e.FullPath.ToString().Contains("Flesichmann"))
                 {
@@ -506,21 +581,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -530,7 +615,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_fleischmann.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 11));
                 }
                 else if (e.FullPath.ToString().Contains("Greenmax"))
                 {
@@ -539,21 +625,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -563,7 +659,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_greenmax.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 8));
                 }
                 else if (e.FullPath.ToString().Contains("Hornby"))
                 {
@@ -572,21 +669,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -596,7 +703,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_hornby.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 6));
                 }
                 else if (e.FullPath.ToString().Contains("Humbrol"))
                 {
@@ -605,21 +713,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -629,7 +747,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_humbrol.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 7));
                 }
                 else if (e.FullPath.ToString().Contains("Jouef"))
                 {
@@ -638,21 +757,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -662,7 +791,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_jouef.jpg");
+                   
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 5));
                 }
                 else if (e.FullPath.ToString().Contains("Kadee"))
                 {
@@ -671,21 +801,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -695,7 +835,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_kadee.jpg");
+                   
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 5));
                 }
                 else if (e.FullPath.ToString().Contains("Kato"))
                 {
@@ -704,21 +845,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -728,7 +879,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_kato.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 4));
                 }
                 else if (e.FullPath.ToString().Contains("Kibri"))
                 {
@@ -737,21 +889,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -761,7 +923,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_kibri.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 5));
                 }
                 else if (e.FullPath.ToString().Contains("LGB"))
                 {
@@ -770,21 +933,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -794,7 +967,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_lgb.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 3));
                 }
                 else if (e.FullPath.ToString().Contains("Lima"))
                 {
@@ -803,21 +977,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -827,7 +1011,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_lima.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 4));
 
                 }
                 else if (e.FullPath.ToString().Contains("Marklin"))
@@ -837,21 +1022,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -861,7 +1056,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_marklin.jpg");
+                  
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 7));
                 }
                 else if (e.FullPath.ToString().Contains("Micro Structures"))
                 {
@@ -870,21 +1066,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -894,7 +1100,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_microstructure.jpg");
+                   
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 16));
                 }
                 else if (e.FullPath.ToString().Contains("Model Power"))
                 {
@@ -903,21 +1110,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -927,7 +1144,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_modelpower.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 11));
                 }
                 else if (e.FullPath.ToString().Contains("Noch"))
                 {
@@ -936,21 +1154,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -960,7 +1188,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_noch.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 4));
                 }
                 else if (e.FullPath.ToString().Contains("Peco"))
                 {
@@ -969,21 +1198,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -993,7 +1232,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_peco.jpg");
+                   
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 4));
                 }
                 else if (e.FullPath.ToString().Contains("Preiser"))
                 {
@@ -1002,21 +1242,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -1026,7 +1276,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_presier.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 7));
                 }
                 else if (e.FullPath.ToString().Contains("Rivarossi"))
                 {
@@ -1035,21 +1286,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -1059,7 +1320,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_rivarossi.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 9));
                 }
                 else if (e.FullPath.ToString().Contains("Roco"))
                 {
@@ -1068,21 +1330,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -1092,7 +1364,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_roco.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 4));
                 }
                 else if (e.FullPath.ToString().Contains("Scenemaster"))
                 {
@@ -1101,21 +1374,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -1125,7 +1408,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_scenemaster.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 11));
                 }
                 else if (e.FullPath.ToString().Contains("Spectrum"))
                 {
@@ -1134,21 +1418,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -1158,7 +1452,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_spectrum.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 8));
                 }
                 else if (e.FullPath.ToString().Contains("Tamiya"))
                 {
@@ -1167,21 +1462,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -1191,7 +1496,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_tamiya.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 6));
                 }
                 else if (e.FullPath.ToString().Contains("Tomix"))
                 {
@@ -1200,22 +1506,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
+
+                    //寫入大小
                     double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
 
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
                     Graphics graphics = Graphics.FromImage(mix_pic);
@@ -1224,7 +1539,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_tomix.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 5));
 
                 }
                 else if (e.FullPath.ToString().Contains("Tomytec"))
@@ -1234,21 +1550,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -1258,7 +1584,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_tomytec.jpg");
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 7));
                 }
                 else if (e.FullPath.ToString().Contains("TouchRail"))
                 {
@@ -1291,7 +1617,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_touchrail.jpg");
+                   
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 9));
                 }
                 else if (e.FullPath.ToString().Contains("Trix"))
                 {
@@ -1300,22 +1627,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
+
+                    //寫入大小
                     double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
 
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
                     Graphics graphics = Graphics.FromImage(mix_pic);
@@ -1324,7 +1660,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_trix.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 4));
                 }
                 else if (e.FullPath.ToString().Contains("Viessmann"))
                 {
@@ -1333,22 +1670,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
+
+                    //寫入大小
                     double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
 
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
                     Graphics graphics = Graphics.FromImage(mix_pic);
@@ -1357,7 +1703,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_viessmann.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 9));
                 }
                 else if (e.FullPath.ToString().Contains("Vollmer"))
                 {
@@ -1365,22 +1712,31 @@ namespace WinsFormsAppPicMix
                     Image logo = Image.FromFile("final_vollmer.jpg");
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
-
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -1390,7 +1746,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_vollmer.jpg");
+                    
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 7));
                 }
                 else if (e.FullPath.ToString().Contains("Walthers"))
                 {
@@ -1399,21 +1756,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
-                    double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //寫入大小
+                    double widthinpic = width_pic * 0.2;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
+
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
+
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj; ;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
@@ -1423,7 +1790,8 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_walthers.jpg");
+                   
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 8));
                 }
                 else if (e.FullPath.ToString().Contains("Woodland"))
                 {
@@ -1432,22 +1800,31 @@ namespace WinsFormsAppPicMix
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
 
+                    //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
+
+                    //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
+
+                    //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
 
-                    //比較照片大小
+                    //原LOGO 長寬比例
+                    float ruler_logo = width_logo / height_logo;
+
+                    //寫入大小
                     double widthinpic = width_pic * 0.2;
-                    double heightinpic = height_pic * 0.2;
-                    zoom = width_pic / width_logo;
+                    double heightinpic = width_pic * 0.2 / ruler_logo;
 
-                    double widthinpicmj = width_pic * 0.5;
-                    double heightinpicmj = height_pic * 0.2;
-                    zoom_mj = width_pic / width_logomj;
+                    //原MJ 長寬比例
+                    float ruler_mj = width_logomj / height_logomj;
 
+                    //寫入大小
+                    double widthinpicmj = width_logomj * 0.5;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
 
                     Graphics graphics = Graphics.FromImage(mix_pic);
@@ -1456,11 +1833,11 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    mix_pic.Save("final_test_woodland.jpg");
+                   
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 8));
                 }
                 else
                 {
-                    //   MessageBox.Show("No matching item");
                     Console.WriteLine("No matching item, " + e.FullPath.ToString());
                 }
             }
@@ -1519,8 +1896,8 @@ namespace WinsFormsAppPicMix
                 cut_area.Save("final_arnold.jpg");
 
                 //mjmodel websiteImage ori_woodland = Image.FromFile(@"D:\阿立圓山\LOGO\Woodland.png");
-                ori_bmp = new System.Drawing.Bitmap(ori_arnold);
-                logo_area = new System.Drawing.Rectangle(3000, 1500, 1200, 400);
+               // ori_bmp = new System.Drawing.Bitmap(ori_arnold);
+                logo_area = new System.Drawing.Rectangle(3000, 1750, 1200, 220);
                 cut_area = ori_bmp.Clone(logo_area, ori_arnold.PixelFormat);
                 cut_area.Save("final_mjmodel.jpg");
 
@@ -1828,15 +2205,16 @@ namespace WinsFormsAppPicMix
                 cut_area = ori_bmp.Clone(logo_area, ori_woodland.PixelFormat);
                 cut_area.Save("final_woodland.jpg");
 
-                MessageBox.Show("Finish");
+                //MessageBox.Show("Finish");
 
+                Console.WriteLine("Finish");
+
+                
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
         }
-
-
     }
 }
