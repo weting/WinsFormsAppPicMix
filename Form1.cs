@@ -40,7 +40,7 @@ namespace WinsFormsAppPicMix
                                     "Viessmann", "Vollmer", "Walthers", "Woodland"};
 
         private static string path_save = @"D:\阿立圓山\picture\Test";
-
+        private static string paht_setting = "";
         public Form1()
         {
 
@@ -1900,7 +1900,14 @@ namespace WinsFormsAppPicMix
             //建立基本資料夾
             try
             {
+                var stream_reader = new StreamReader(@".\picture");
+                if (stream_reader == null)
+                {
+                    Directory.CreateDirectory(@".\picture\");
 
+                }
+                //read_invoiceno = stream_reader.ReadLine();
+                stream_reader.Close();
             }
             catch (Exception ex)
             {
@@ -2235,6 +2242,35 @@ namespace WinsFormsAppPicMix
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnview_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog path_folder = new FolderBrowserDialog();
+            path_folder.ShowDialog();
+            txtbx_path.Text = path_folder.SelectedPath;
+        }
+
+        private void btn_pathcheck_Click(object sender, EventArgs e)
+        {
+            string txt_filepath = "";
+            try
+            {
+                var stream_write = new StreamWriter(@".\document\path.txt");
+                txt_filepath = txtbx_path.Text;
+
+                stream_write.WriteLine(txt_filepath);
+                stream_write.Close();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
         }
     }
