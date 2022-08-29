@@ -139,7 +139,7 @@ namespace WinsFormsAppPicMix
             }
             Console.WriteLine(e.FullPath.ToString());
 
-            
+
             try
             {
                 if (e.FullPath.ToString().Contains("Arnold"))
@@ -148,15 +148,15 @@ namespace WinsFormsAppPicMix
                     Image logo = Image.FromFile("final_arnold.jpg");
                     Image logo_mj = Image.FromFile("final_mjmodel.jpg");
                     Image mix_pic;
-                    
+
                     //原圖大小
                     width_pic = ori_pic.Width;
                     height_pic = ori_pic.Height;
-                    
+
                     //LOGO大小
                     width_logo = logo.Width;
                     height_logo = logo.Height;
-                    
+
                     //MJ LOGO 大小
                     width_logomj = logo_mj.Width;
                     height_logomj = logo_mj.Height;
@@ -169,14 +169,14 @@ namespace WinsFormsAppPicMix
                     double heightinpic = width_pic * 0.2 / ruler_logo;
 
                     //原MJ 長寬比例
-                    float ruler_mj =width_logomj/height_logomj;
+                    float ruler_mj = width_logomj / height_logomj;
 
                     //寫入大小
                     double widthinpicmj = width_logomj * 0.5;
-                    double heightinpicmj = width_logomj *0.5 / ruler_mj;
+                    double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
-                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));                                     
-                                     
+                    mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
+
                     Graphics graphics = Graphics.FromImage(mix_pic);
 
                     graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
@@ -184,9 +184,9 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
                     mix_pic.Save("final_test_arnold.jpg");
-                    Console.WriteLine("Path:"+ path_save + e.Name.ToString().Remove(0, 6));
+                    Console.WriteLine("Path:" + path_save + e.Name.ToString().Remove(0, 6));
                     Console.WriteLine("e.Name:" + e.Name.ToString());
-                    mix_pic.Save(path_save+e.Name.ToString().Remove(0,6));
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 6));
                 }
                 else if (e.FullPath.ToString().Contains("Artitec"))
                 {
@@ -222,14 +222,14 @@ namespace WinsFormsAppPicMix
                     double heightinpicmj = width_logomj * 0.5 / ruler_mj;
 
                     mix_pic = new Bitmap(Convert.ToInt32(width_pic), Convert.ToInt32(height_pic));
-                              
+
                     Graphics graphics = Graphics.FromImage(mix_pic);
 
                     graphics.FillRectangle(Brushes.White, new Rectangle(0, 0, width_pic, height_pic));
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 7));
                 }
                 else if (e.FullPath.ToString().Contains("Bachmann"))
@@ -273,7 +273,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 8));
                 }
                 else if (e.FullPath.ToString().Contains("BLI"))
@@ -317,7 +317,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 3));
                 }
                 else if (e.FullPath.ToString().Contains("Brawa"))
@@ -361,7 +361,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                   
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 5));
                 }
                 else if (e.FullPath.ToString().Contains("Busch"))
@@ -405,7 +405,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 5));
                 }
                 else if (e.FullPath.ToString().Contains("Digitrax"))
@@ -449,7 +449,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 8));
                 }
                 else if (e.FullPath.ToString().Contains("Electrotren"))
@@ -493,7 +493,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 11));
                 }
                 else if (e.FullPath.ToString().Contains("ESU"))
@@ -537,7 +537,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 3));
                 }
                 else if (e.FullPath.ToString().Contains("Faller"))
@@ -581,7 +581,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 6));
                 }
                 else if (e.FullPath.ToString().Contains("Flesichmann"))
@@ -625,7 +625,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 11));
                 }
                 else if (e.FullPath.ToString().Contains("Greenmax"))
@@ -669,7 +669,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 8));
                 }
                 else if (e.FullPath.ToString().Contains("Hornby"))
@@ -713,7 +713,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 6));
                 }
                 else if (e.FullPath.ToString().Contains("Humbrol"))
@@ -757,7 +757,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 7));
                 }
                 else if (e.FullPath.ToString().Contains("Jouef"))
@@ -801,7 +801,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                   
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 5));
                 }
                 else if (e.FullPath.ToString().Contains("Kadee"))
@@ -845,7 +845,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                   
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 5));
                 }
                 else if (e.FullPath.ToString().Contains("Kato"))
@@ -889,7 +889,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 4));
                 }
                 else if (e.FullPath.ToString().Contains("Kibri"))
@@ -933,7 +933,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 5));
                 }
                 else if (e.FullPath.ToString().Contains("LGB"))
@@ -977,7 +977,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 3));
                 }
                 else if (e.FullPath.ToString().Contains("Lima"))
@@ -1021,7 +1021,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 4));
 
                 }
@@ -1066,7 +1066,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                  
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 7));
                 }
                 else if (e.FullPath.ToString().Contains("Micro Structures"))
@@ -1110,7 +1110,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                   
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 16));
                 }
                 else if (e.FullPath.ToString().Contains("Model Power"))
@@ -1154,7 +1154,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 11));
                 }
                 else if (e.FullPath.ToString().Contains("Noch"))
@@ -1198,7 +1198,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 4));
                 }
                 else if (e.FullPath.ToString().Contains("Peco"))
@@ -1242,7 +1242,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                   
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 4));
                 }
                 else if (e.FullPath.ToString().Contains("Preiser"))
@@ -1286,7 +1286,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 7));
                 }
                 else if (e.FullPath.ToString().Contains("Rivarossi"))
@@ -1330,7 +1330,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 9));
                 }
                 else if (e.FullPath.ToString().Contains("Roco"))
@@ -1374,7 +1374,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 4));
                 }
                 else if (e.FullPath.ToString().Contains("Scenemaster"))
@@ -1418,7 +1418,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 11));
                 }
                 else if (e.FullPath.ToString().Contains("Spectrum"))
@@ -1462,7 +1462,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 8));
                 }
                 else if (e.FullPath.ToString().Contains("Tamiya"))
@@ -1506,7 +1506,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 6));
                 }
                 else if (e.FullPath.ToString().Contains("Tomix"))
@@ -1549,7 +1549,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 5));
 
                 }
@@ -1627,7 +1627,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                   
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 9));
                 }
                 else if (e.FullPath.ToString().Contains("Trix"))
@@ -1670,7 +1670,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 4));
                 }
                 else if (e.FullPath.ToString().Contains("Viessmann"))
@@ -1713,7 +1713,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 9));
                 }
                 else if (e.FullPath.ToString().Contains("Vollmer"))
@@ -1756,7 +1756,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                    
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 7));
                 }
                 else if (e.FullPath.ToString().Contains("Walthers"))
@@ -1800,7 +1800,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                   
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 8));
                 }
                 else if (e.FullPath.ToString().Contains("Woodland"))
@@ -1843,7 +1843,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-                   
+
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 8));
                 }
                 else
@@ -1902,7 +1902,7 @@ namespace WinsFormsAppPicMix
             {
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
@@ -1917,7 +1917,7 @@ namespace WinsFormsAppPicMix
                 cut_area.Save("final_arnold.jpg");
 
                 //mjmodel websiteImage ori_woodland = Image.FromFile(@"D:\阿立圓山\LOGO\Woodland.png");
-               // ori_bmp = new System.Drawing.Bitmap(ori_arnold);
+                // ori_bmp = new System.Drawing.Bitmap(ori_arnold);
                 logo_area = new System.Drawing.Rectangle(3000, 1750, 1200, 220);
                 cut_area = ori_bmp.Clone(logo_area, ori_arnold.PixelFormat);
                 cut_area.Save("final_mjmodel.jpg");
@@ -2091,7 +2091,7 @@ namespace WinsFormsAppPicMix
                 cut_area.Save("final_microstructure.jpg");
 
                 //Model Power
-                Image ori_modelpower = Image.FromFile(@"D:\阿立圓山\LOGO\Model Power.png");
+               Image ori_modelpower = Image.FromFile(@"D:\阿立圓山\LOGO\Model Power.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_modelpower);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 350);
                 // Image final_modelpower = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
@@ -2230,7 +2230,7 @@ namespace WinsFormsAppPicMix
 
                 Console.WriteLine("Finish");
 
-                
+
             }
             catch (Exception ex)
             {
