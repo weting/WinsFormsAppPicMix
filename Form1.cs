@@ -138,7 +138,7 @@ namespace WinsFormsAppPicMix
         /*Watcher OnChanged 有機會跑好幾次 因為檔案的屬性只要被修改也會跑 OnChanged 就算你只有寫入一次檔案*/
         private static void OnChanged(object sender, FileSystemEventArgs e)
         {
-          
+            
             if (e.ChangeType != WatcherChangeTypes.Changed)
             {
                 return;
@@ -148,6 +148,7 @@ namespace WinsFormsAppPicMix
             {
                 if (e.FullPath.ToString().Contains("Arnold"))
                 {
+                    MessageBox.Show("e:" + e.Name + "\n" + "e.FullPath" + e.FullPath);
                     Image ori_pic = Image.FromFile(e.FullPath.ToString());
                     Image logo = Image.FromFile(@".\source\"+"final_arnold.jpg");
                     Image logo_mj = Image.FromFile(@".\source\"+"final_mjmodel.jpg");
@@ -230,9 +231,9 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
-
-                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 7));
                     Console.WriteLine("testc:" + path_save + e.Name.ToString().Remove(0, 7));
+                    mix_pic.Save(path_save + e.Name.ToString().Remove(0, 7));
+                    
                 }
                 else if (e.FullPath.ToString().Contains("Bachmann"))
                 {
