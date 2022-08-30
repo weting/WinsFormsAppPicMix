@@ -40,7 +40,8 @@ namespace WinsFormsAppPicMix
                                     "Viessmann", "Vollmer", "Walthers", "Woodland"};
 
         private static string path_save = @"D:\阿立圓山\picture\Test";
-        private static string paht_setting = "";
+        private static string path_read = @"";
+        private static string path_sourcepic = @".\LOGO\";
         public Form1()
         {
 
@@ -48,10 +49,8 @@ namespace WinsFormsAppPicMix
             this.contextmenu1 = new System.Windows.Forms.ContextMenu();
             this.menuitem1 = new System.Windows.Forms.MenuItem();
 
-
             // Initialize contextmenu1
-            this.contextmenu1.MenuItems.AddRange(
-                        new System.Windows.Forms.MenuItem[] { this.menuitem1 });
+            this.contextmenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] { this.menuitem1 });
 
             // Initialize menuitem1
             this.menuitem1.Index = 0;
@@ -60,7 +59,7 @@ namespace WinsFormsAppPicMix
 
             // Set up how the form should be displayed.
             this.ClientSize = new System.Drawing.Size(292, 266);
-            this.Text = "Notify Icon Example";
+            this.Text = "AutoMixPicture-version 1.1.5";
 
             // Create the NotifyIcon.
             this.notifyicon1 = new System.Windows.Forms.NotifyIcon(this.components);
@@ -75,13 +74,12 @@ namespace WinsFormsAppPicMix
 
             // The Text property sets the text that will be displayed,
             // in a tooltip, when the mouse hovers over the systray icon.
-            notifyicon1.Text = "Form1 (NotifyIcon example)";
+            notifyicon1.Text = "AutoMixPicture-version 1.1.5";
             notifyicon1.Visible = true;
 
             // Handle the DoubleClick event to activate the form.
             notifyicon1.DoubleClick += new System.EventHandler(this.notifyicon1_DoubleClick);
             InitializeComponent();
-
         }
 
         private void notifyicon1_DoubleClick(object Sender, EventArgs e)
@@ -124,21 +122,17 @@ namespace WinsFormsAppPicMix
             watcher.IncludeSubdirectories = true;
             watcher.EnableRaisingEvents = true;
 
-            Console.WriteLine("Press enter to exit.");
-            Console.ReadLine();
+            //Console.WriteLine("Press enter to exit.");
+            //Console.ReadLine();
         }
         /*Watcher OnChanged 有機會跑好幾次 因為檔案的屬性只要被修改也會跑 OnChanged 就算你只有寫入一次檔案*/
         private static void OnChanged(object sender, FileSystemEventArgs e)
         {
-            i++;
-            Console.WriteLine("e.ChangeType :" + e.ChangeType.ToString());
-            Console.WriteLine("WatcherChangeTypes.Changed :" + WatcherChangeTypes.Changed.ToString());
+          
             if (e.ChangeType != WatcherChangeTypes.Changed)
             {
                 return;
             }
-            Console.WriteLine(e.FullPath.ToString());
-
 
             try
             {
@@ -1854,6 +1848,17 @@ namespace WinsFormsAppPicMix
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
+                if (!Directory.Exists(@".\document\"))
+                {
+                    Directory.CreateDirectory(@".\document\");
+                }
+                else
+                {
+                    Console.WriteLine(ex.ToString());
+                    var stream_writer = new StreamWriter(@".\document\error.txt");
+                    stream_writer.WriteLine(ex.ToString());
+                    stream_writer.Close();
+                }
             }
         }
 
@@ -1896,381 +1901,429 @@ namespace WinsFormsAppPicMix
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //原路徑讀取
+            try
+            {
+                var stream_reader = new StreamReader(@".\document\pathsave.txt");
+                if (stream_reader == null)
+                {
+                    Directory.CreateDirectory(@".\document\");
+                }
+                else
+                {
+                    txtbx_pathsave.Text = stream_reader.ReadToEnd();
+                }
+                stream_reader.Close();
 
+                stream_reader = new StreamReader(@".\document\pathread.txt");
+                if (stream_reader == null)
+                {
+                    Directory.CreateDirectory(@".\document\");
+                }
+                
+                txtbx_pathread.Text = stream_reader.ReadToEnd();
+                
+                stream_reader.Close();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                var stream_writer = new StreamWriter(@".\document\error.txt");
+                stream_writer.WriteLine(ex.ToString());
+                stream_writer.Close(); stream_writer.Close();
+            }
             //建立基本資料夾
             try
             {
-                var stream_reader = new StreamReader(@".\picture");
-                if (stream_reader == null)
+                if (!Directory.Exists(@".\picture"))
                 {
                     Directory.CreateDirectory(@".\picture\");
-
                 }
-                //read_invoiceno = stream_reader.ReadLine();
-                stream_reader.Close();
+                else
+                {
+                    for (int i = 0; i < 40; i++)
+                    {
+                        if (!Directory.Exists(@".\picture\" + factory[i]))
+                        {
+                            Directory.CreateDirectory(@".\picture\"+ factory[i]);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Directory "+factory[i]+" is exist");
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+
+                if (!Directory.Exists(@".\document\"))
+                {
+                    Directory.CreateDirectory(@".\document\");
+                }
+                else
+                {
+                    Console.WriteLine(ex.ToString());
+                    var stream_writer = new StreamWriter(@".\document\error.txt");
+                    stream_writer.WriteLine(ex.ToString());
+                    stream_writer.Close();stream_writer.Close();
+                }
             }
 
             try
             {
+                if (!Directory.Exists(@"../source"))
+                {
+                    Directory.CreateDirectory(@".\source\");
+                }
+                
+                
                 //針對Arnold LOGO 去調整
-                Image ori_arnold = Image.FromFile(@"D:\阿立圓山\LOGO\Arnold.png");
+                Image ori_arnold = Image.FromFile(path_sourcepic+"Arnold.png");
                 Bitmap ori_bmp = new System.Drawing.Bitmap(ori_arnold);
                 Rectangle logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
                 Image cut_area = ori_bmp.Clone(logo_area, ori_arnold.PixelFormat);
-                cut_area.Save("final_arnold.jpg");
+                cut_area.Save(@".\source\final_arnold.jpg");
 
-                //mjmodel websiteImage ori_woodland = Image.FromFile(@"D:\阿立圓山\LOGO\Woodland.png");
-                // ori_bmp = new System.Drawing.Bitmap(ori_arnold);
                 logo_area = new System.Drawing.Rectangle(3000, 1750, 1200, 220);
                 cut_area = ori_bmp.Clone(logo_area, ori_arnold.PixelFormat);
-                cut_area.Save("final_mjmodel.jpg");
+                cut_area.Save(@".\source\final_mjmodel.jpg");
 
                 //Artiec 
-                Image ori_artitec = Image.FromFile(@"D:\阿立圓山\LOGO\Artitec.png");
+                Image ori_artitec = Image.FromFile(path_sourcepic + "Artitec.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_artitec);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                //Image final_artitec = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_artitec.PixelFormat);
-                cut_area.Save("final_artitec.jpg");
+                cut_area.Save(@".\source\final_artitec.jpg");
 
                 //Bachmann
-                Image ori_bachmann = Image.FromFile(@"D:\阿立圓山\LOGO\Bachmann.png");
+                Image ori_bachmann = Image.FromFile(path_sourcepic + "Bachmann.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_bachmann);
                 logo_area = new System.Drawing.Rectangle(50, 50, 600, 600);
-                // Image final_bachmann = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_bachmann.PixelFormat);
-                cut_area.Save("final_bachmann.jpg");
+                cut_area.Save(@".\source\final_bachmann.jpg");
 
                 //BLI
-                Image ori_bli = Image.FromFile(@"D:\阿立圓山\LOGO\BLI.png");
+                Image ori_bli = Image.FromFile(path_sourcepic+"BLI.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_bli);
                 logo_area = new System.Drawing.Rectangle(50, 50, 500, 350);
-                // Image final_bli = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_bli.PixelFormat);
-                cut_area.Save("final_bli.jpg");
+                cut_area.Save(@".\source\final_bli.jpg");
 
                 //Brawa
-                Image ori_brawa = Image.FromFile(@"D:\阿立圓山\LOGO\Brawa.png");
+                Image ori_brawa = Image.FromFile(path_sourcepic + "Brawa.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_brawa);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                //Image final_brawa = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_brawa.PixelFormat);
-                cut_area.Save("final_brawa.jpg");
+                cut_area.Save(@".\source\final_brawa.jpg");
 
                 //Busch
-                Image ori_busch = Image.FromFile(@"D:\阿立圓山\LOGO\Busch.png");
+                Image ori_busch = Image.FromFile(path_sourcepic + "Busch.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_busch);
                 logo_area = new System.Drawing.Rectangle(50, 50, 450, 450);
-                // Image final_busch = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_busch.PixelFormat);
-                cut_area.Save("final_busch.jpg");
+                cut_area.Save(@".\source\final_busch.jpg");
 
                 //Digitrax
-                Image ori_digitrax = Image.FromFile(@"D:\阿立圓山\LOGO\Digitrax.png");
+                Image ori_digitrax = Image.FromFile(path_sourcepic+"Digitrax.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_digitrax);
                 logo_area = new System.Drawing.Rectangle(50, 50, 700, 300);
-                // Image final_digitrax = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_digitrax.PixelFormat);
-                cut_area.Save("final_digitrax.jpg");
+                cut_area.Save(@".\source\final_digitrax.jpg");
 
                 //Electrotren
-                Image ori_electrotren = Image.FromFile(@"D:\阿立圓山\LOGO\Electrotren.png");
+                Image ori_electrotren = Image.FromFile(path_sourcepic+"Electrotren.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_electrotren);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1300, 300);
-                // Image final_electrotren = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_electrotren.PixelFormat);
-                cut_area.Save("final_electrotren.jpg");
+                cut_area.Save(@".\source\final_electrotren.jpg");
 
                 //ESU
-                Image ori_esu = Image.FromFile(@"D:\阿立圓山\LOGO\ESU.png");
+                Image ori_esu = Image.FromFile(path_sourcepic+"ESU.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_esu);
                 logo_area = new System.Drawing.Rectangle(50, 50, 400, 400);
-                // Image final_esu = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_esu.PixelFormat);
-                cut_area.Save("final_esu.jpg");
+                cut_area.Save(@".\source\final_esu.jpg");
 
                 //Faller
-                Image ori_faller = Image.FromFile(@"D:\阿立圓山\LOGO\Faller.png");
+                Image ori_faller = Image.FromFile(path_sourcepic+"Faller.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_faller);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1000, 350);
-                // Image final_faller = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_faller.PixelFormat);
-                cut_area.Save("final_faller.jpg");
+                cut_area.Save(@".\source\final_faller.jpg");
 
                 //Fleischmann
-                Image ori_fleischmann = Image.FromFile(@"D:\阿立圓山\LOGO\Fleischmann.png");
+                Image ori_fleischmann = Image.FromFile(path_sourcepic+"Fleischmann.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_fleischmann);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1100, 300);
-                // Image final_fleischmann = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_fleischmann.PixelFormat);
-                cut_area.Save("final_fleischmann.jpg");
+                cut_area.Save(@".\source\final_fleischmann.jpg");
 
                 //Greenmax
-                Image ori_greenmax = Image.FromFile(@"D:\阿立圓山\LOGO\Greenmax.png");
+                Image ori_greenmax = Image.FromFile(path_sourcepic+"Greenmax.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_greenmax);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
-                // Image final_greenmax = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_greenmax.PixelFormat);
-                cut_area.Save("final_greenmax.jpg");
+                cut_area.Save(@".\source\final_greenmax.jpg");
 
                 //Hornby
-                Image ori_hornby = Image.FromFile(@"D:\阿立圓山\LOGO\Hornby.png");
+                Image ori_hornby = Image.FromFile(path_sourcepic+"Hornby.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_hornby);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1000, 350);
-                // Image final_hornby = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_hornby.PixelFormat);
-                cut_area.Save("final_hornby.jpg");
+                cut_area.Save(@".\source\final_hornby.jpg");
 
                 //Humbrol
-                Image ori_humbrol = Image.FromFile(@"D:\阿立圓山\LOGO\Humbrol.png");
+                Image ori_humbrol = Image.FromFile(path_sourcepic+"Humbrol.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_humbrol);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
-                // Image final_humbrol = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_humbrol.PixelFormat);
-                cut_area.Save("final_humbrol.jpg");
+                cut_area.Save(@".\source\final_humbrol.jpg");
 
                 //Jouef
-                Image ori_jouef = Image.FromFile(@"D:\阿立圓山\LOGO\Jouef.png");
+                Image ori_jouef = Image.FromFile(path_sourcepic+"Jouef.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_jouef);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                //Image final_jouef = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_jouef.PixelFormat);
-                cut_area.Save("final_jouef.jpg");
+                cut_area.Save(@".\source\final_jouef.jpg");
 
                 //Kadee
-                Image ori_kadee = Image.FromFile(@"D:\阿立圓山\LOGO\Kadee.png");
+                Image ori_kadee = Image.FromFile(path_sourcepic+"Kadee.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_kadee);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                //Image final_kadee = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_kadee.PixelFormat);
-                cut_area.Save("final_kadee.jpg");
+                cut_area.Save(@".\source\final_kadee.jpg");
 
                 //Kato
-                Image ori_kato = Image.FromFile(@"D:\阿立圓山\LOGO\Kato.png");
+                Image ori_kato = Image.FromFile(path_sourcepic+"Kato.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_kato);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                //Image final_kato = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_kato.PixelFormat);
-                cut_area.Save("final_kato.jpg");
+                cut_area.Save(@".\source\final_kato.jpg");
 
                 //Kibri
-                Image ori_kibri = Image.FromFile(@"D:\阿立圓山\LOGO\kibri.png");
+                Image ori_kibri = Image.FromFile(path_sourcepic+"kibri.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_kibri);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                // Image final_kibri = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_kibri.PixelFormat);
-                cut_area.Save("final_kibri.jpg");
+                cut_area.Save(@".\source\final_kibri.jpg");
 
                 //LGB
-                Image ori_lgb = Image.FromFile(@"D:\阿立圓山\LOGO\LGB.png");
+                Image ori_lgb = Image.FromFile(path_sourcepic+"LGB.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_lgb);
                 logo_area = new System.Drawing.Rectangle(50, 50, 500, 400);
-                //Image final_lgb = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_lgb.PixelFormat);
-                cut_area.Save("final_lgb.jpg");
+                cut_area.Save(@".\source\final_lgb.jpg");
 
                 //Lima
-                Image ori_lima = Image.FromFile(@"D:\阿立圓山\LOGO\Lima.png");
+                Image ori_lima = Image.FromFile(path_sourcepic+"Lima.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_lima);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                //Image final_lima = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_lima.PixelFormat);
-                cut_area.Save("final_lima.jpg");
+                cut_area.Save(@".\source\final_lima.jpg");
 
                 //Marklin
-                Image ori_marklin = Image.FromFile(@"D:\阿立圓山\LOGO\marklin.png");
+                Image ori_marklin = Image.FromFile(path_sourcepic+"marklin.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_marklin);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                // Image final_marklin = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_marklin.PixelFormat);
-                cut_area.Save("final_marklin.jpg");
+                cut_area.Save(@".\source\final_marklin.jpg");
 
                 //Micro Structure
-                Image ori_microstructure = Image.FromFile(@"D:\阿立圓山\LOGO\Micro Structures.png");
+                Image ori_microstructure = Image.FromFile(path_sourcepic+"Micro Structures.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_microstructure);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1200, 300);
-                // Image final_microstructure = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_microstructure.PixelFormat);
-                cut_area.Save("final_microstructure.jpg");
+                cut_area.Save(@".\source\final_microstructure.jpg");
 
                 //Model Power
-               Image ori_modelpower = Image.FromFile(@"D:\阿立圓山\LOGO\Model Power.png");
+               Image ori_modelpower = Image.FromFile(path_sourcepic+"Model Power.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_modelpower);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 350);
-                // Image final_modelpower = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_modelpower.PixelFormat);
-                cut_area.Save("final_modelpower.jpg");
+                cut_area.Save(@".\source\final_modelpower.jpg");
 
                 //Noch
-                Image ori_noch = Image.FromFile(@"D:\阿立圓山\LOGO\NOCH.png");
+                Image ori_noch = Image.FromFile(path_sourcepic+"NOCH.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_noch);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                // Image final_noch = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_noch.PixelFormat);
-                cut_area.Save("final_noch.jpg");
+                cut_area.Save(@".\source\final_noch.jpg");
 
                 //Peco
-                Image ori_peco = Image.FromFile(@"D:\阿立圓山\LOGO\PECO.png");
+                Image ori_peco = Image.FromFile(path_sourcepic+"PECO.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_peco);
                 logo_area = new System.Drawing.Rectangle(50, 50, 500, 300);
-                //  Image final_peco = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_peco.PixelFormat);
-                cut_area.Save("final_peco.jpg");
+                cut_area.Save(@".\source\final_peco.jpg");
 
                 //Presier
-                Image ori_preiser = Image.FromFile(@"D:\阿立圓山\LOGO\Preiser.png");
+                Image ori_preiser = Image.FromFile(path_sourcepic+"Preiser.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_preiser);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                // Image final_preiser = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_preiser.PixelFormat);
-                cut_area.Save("final_preiser.jpg");
+                cut_area.Save(@".\source\final_preiser.jpg");
 
                 //Rivarossi
-                Image ori_rivarossi = Image.FromFile(@"D:\阿立圓山\LOGO\Rivarossi.png");
+                Image ori_rivarossi = Image.FromFile(path_sourcepic+"Rivarossi.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_rivarossi);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1200, 300);
-                // Image final_rivarossi = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_rivarossi.PixelFormat);
-                cut_area.Save("final_rivarossi.jpg");
+                cut_area.Save(@".\source\final_rivarossi.jpg");
 
                 //Roco
-                Image ori_roco = Image.FromFile(@"D:\阿立圓山\LOGO\Roco.png");
+                Image ori_roco = Image.FromFile(path_sourcepic+"Roco.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_roco);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
-                // Image final_roco = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_roco.PixelFormat);
-                cut_area.Save("final_roco.jpg");
+                cut_area.Save(@".\source\final_roco.jpg");
 
                 //SceneMaster
-                Image ori_scenemaster = Image.FromFile(@"D:\阿立圓山\LOGO\Scenemaster.png");
+                Image ori_scenemaster = Image.FromFile(path_sourcepic+"Scenemaster.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_scenemaster);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
-                // Image final_scenemaster = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_scenemaster.PixelFormat);
-                cut_area.Save("final_scenemaster.jpg");
+                cut_area.Save(@".\source\final_scenemaster.jpg");
 
                 //Spectrum
-                Image ori_spectrum = Image.FromFile(@"D:\阿立圓山\LOGO\Spectrum.png");
+                Image ori_spectrum = Image.FromFile(path_sourcepic+"Spectrum.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_spectrum);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 350);
-                //  Image final_spectrum = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_spectrum.PixelFormat);
-                cut_area.Save("final_spectrum.jpg");
+                cut_area.Save(@".\source\final_spectrum.jpg");
 
                 //Tamiya
-                Image ori_tamiya = Image.FromFile(@"D:\阿立圓山\LOGO\Tamiya.png");
+                Image ori_tamiya = Image.FromFile(path_sourcepic+"Tamiya.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_tamiya);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 350);
-                // Image final_tamiya = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_tamiya.PixelFormat);
-                cut_area.Save("final_tamiya.jpg");
+                cut_area.Save(@".\source\final_tamiya.jpg");
 
                 //Tomix
-                Image ori_tomix = Image.FromFile(@"D:\阿立圓山\LOGO\Tomix.png");
+                Image ori_tomix = Image.FromFile(path_sourcepic+"Tomix.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_tomix);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 250);
-                // Image final_tomix = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_tomix.PixelFormat);
-                cut_area.Save("final_tomix.jpg");
+                cut_area.Save(@".\source\final_tomix.jpg");
 
                 //Tomytec
-                Image ori_tomytec = Image.FromFile(@"D:\阿立圓山\LOGO\Tomytec.png");
+                Image ori_tomytec = Image.FromFile(path_sourcepic+"Tomytec.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_tomytec);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 250);
-                //Image final_tomytec = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_tomytec.PixelFormat);
-                cut_area.Save("final_tomytec.jpg");
+                cut_area.Save(@".\source\final_tomytec.jpg");
 
                 //TouchRail
-                Image ori_touchrail = Image.FromFile(@"D:\阿立圓山\LOGO\Touchrail.png");
+                Image ori_touchrail = Image.FromFile(path_sourcepic+"Touchrail.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_touchrail);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
-                //Image final_touchrail = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_touchrail.PixelFormat);
-                cut_area.Save("final_touchrail.jpg");
+                cut_area.Save(@".\source\final_touchrail.jpg");
 
                 //Trix
-                Image ori_trix = Image.FromFile(@"D:\阿立圓山\LOGO\Trix.png");
+                Image ori_trix = Image.FromFile(path_sourcepic+"Trix.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_trix);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                //Image final_trix = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_trix.PixelFormat);
-                cut_area.Save("final_trix.jpg");
+                cut_area.Save(@".\source\final_trix.jpg");
 
                 //Viessmann
-                Image ori_viessmann = Image.FromFile(@"D:\阿立圓山\LOGO\Viessmann.png");
+                Image ori_viessmann = Image.FromFile(path_sourcepic+"Viessmann.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_viessmann);
                 logo_area = new System.Drawing.Rectangle(50, 50, 600, 400);
-                //Image final_viessmann = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_viessmann.PixelFormat);
-                cut_area.Save("final_viessmann.jpg");
+                cut_area.Save(@".\source\final_viessmann.jpg");
 
                 //Vollmer
-                Image ori_vollmer = Image.FromFile(@"D:\阿立圓山\LOGO\Vollmer.png");
+                Image ori_vollmer = Image.FromFile(path_sourcepic+"Vollmer.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_vollmer);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
-                //Image final_vollmer = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_vollmer.PixelFormat);
-                cut_area.Save("final_vollmer.jpg");
+                cut_area.Save(@".\source\final_vollmer.jpg");
 
                 //Walthers
-                Image ori_walthers = Image.FromFile(@"D:\阿立圓山\LOGO\Walthers.png");
+                Image ori_walthers = Image.FromFile(path_sourcepic+"Walthers.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_walthers);
                 logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
-                //Image final_walthers = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_walthers.PixelFormat);
-                cut_area.Save("final_walthers.jpg");
+                cut_area.Save(@".\source\final_walthers.jpg");
 
                 //Woodland
-                Image ori_woodland = Image.FromFile(@"D:\阿立圓山\LOGO\Woodland.png");
+                Image ori_woodland = Image.FromFile(path_sourcepic+"Woodland.png");
                 ori_bmp = new System.Drawing.Bitmap(ori_woodland);
                 logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                //Image final_woodland = Image.FromFile(@"D:\阿立圓山\LOGO\ori.jpg");
                 cut_area = ori_bmp.Clone(logo_area, ori_woodland.PixelFormat);
-                cut_area.Save("final_woodland.jpg");
-
-                //MessageBox.Show("Finish");
+                cut_area.Save(@".\source\final_woodland.jpg");
 
                 Console.WriteLine("Finish");
 
-
+                GC.Collect();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Console.WriteLine(ex.ToString());
+                if (!Directory.Exists(@".\document\"))
+                {
+                    Directory.CreateDirectory(@".\document\");
+                }
+                else
+                {
+                    Console.WriteLine(ex.ToString());
+                    var stream_writer = new StreamWriter(@".\document\error.txt");
+                    stream_writer.WriteLine(ex.ToString());
+                    stream_writer.Close();
+                }
             }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
+            path_save = txtbx_pathsave.Text;
+            path_read = txtbx_pathread.Text;
         }
 
         private void btnview_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog path_folder = new FolderBrowserDialog();
             path_folder.ShowDialog();
-            txtbx_path.Text = path_folder.SelectedPath;
+            txtbx_pathsave.Text = path_folder.SelectedPath;
+        }
+
+        private void btn_viewpathread_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog path_folder = new FolderBrowserDialog();
+            path_folder.ShowDialog();
+            txtbx_pathread.Text = path_folder.SelectedPath;
         }
 
         private void btn_pathcheck_Click(object sender, EventArgs e)
         {
-            string txt_filepath = "";
+            string txt_filepathsave = "";
+            string txt_filepathread = "";
             try
             {
-                var stream_write = new StreamWriter(@".\document\path.txt");
-                txt_filepath = txtbx_path.Text;
-
-                stream_write.WriteLine(txt_filepath);
+                var stream_write = new StreamWriter(@".\document\pathsave.txt");               
+                txt_filepathsave = txtbx_pathsave.Text;
+                stream_write.WriteLine(txt_filepathsave);
                 stream_write.Close();
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.ToString());
+                var stream_writer = new StreamWriter(@".\document\error.txt");
+                stream_writer.WriteLine(ex.ToString());
+                stream_writer.Close();
+            }
+
+            try
+            {
+                var stream_write = new StreamWriter(@".\document\pathread.txt");
+                txt_filepathread = txtbx_pathread.Text;
+                stream_write.WriteLine(txt_filepathread);
+                stream_write.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                var stream_writer = new StreamWriter(@".\document\error.txt");
+                stream_writer.WriteLine(ex.ToString());
+                stream_writer.Close();
             }
         }
     }

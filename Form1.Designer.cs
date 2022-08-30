@@ -31,9 +31,12 @@ namespace WinsFormsAppPicMix
         {
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtbx_path = new System.Windows.Forms.TextBox();
-            this.btn_view = new System.Windows.Forms.Button();
+            this.txtbx_pathsave = new System.Windows.Forms.TextBox();
+            this.btn_viewpathsave = new System.Windows.Forms.Button();
             this.btn_pathcheck = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtbx_pathread = new System.Windows.Forms.TextBox();
+            this.btn_viewpathread = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -50,32 +53,32 @@ namespace WinsFormsAppPicMix
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(37, 38);
+            this.label1.Location = new System.Drawing.Point(34, 71);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(67, 15);
             this.label1.TabIndex = 1;
             this.label1.Text = "儲存路徑";
             // 
-            // txtbx_path
+            // txtbx_pathsave
             // 
-            this.txtbx_path.Location = new System.Drawing.Point(110, 35);
-            this.txtbx_path.Name = "txtbx_path";
-            this.txtbx_path.Size = new System.Drawing.Size(387, 25);
-            this.txtbx_path.TabIndex = 2;
+            this.txtbx_pathsave.Location = new System.Drawing.Point(107, 71);
+            this.txtbx_pathsave.Name = "txtbx_pathsave";
+            this.txtbx_pathsave.Size = new System.Drawing.Size(387, 25);
+            this.txtbx_pathsave.TabIndex = 2;
             // 
-            // btn_view
+            // btn_viewpathsave
             // 
-            this.btn_view.Location = new System.Drawing.Point(503, 29);
-            this.btn_view.Name = "btn_view";
-            this.btn_view.Size = new System.Drawing.Size(104, 32);
-            this.btn_view.TabIndex = 3;
-            this.btn_view.Text = "瀏覽";
-            this.btn_view.UseVisualStyleBackColor = true;
-            this.btn_view.Click += new System.EventHandler(this.btnview_Click);
+            this.btn_viewpathsave.Location = new System.Drawing.Point(503, 71);
+            this.btn_viewpathsave.Name = "btn_viewpathsave";
+            this.btn_viewpathsave.Size = new System.Drawing.Size(104, 32);
+            this.btn_viewpathsave.TabIndex = 3;
+            this.btn_viewpathsave.Text = "瀏覽";
+            this.btn_viewpathsave.UseVisualStyleBackColor = true;
+            this.btn_viewpathsave.Click += new System.EventHandler(this.btnview_Click);
             // 
             // btn_pathcheck
             // 
-            this.btn_pathcheck.Location = new System.Drawing.Point(613, 28);
+            this.btn_pathcheck.Location = new System.Drawing.Point(613, 68);
             this.btn_pathcheck.Name = "btn_pathcheck";
             this.btn_pathcheck.Size = new System.Drawing.Size(89, 32);
             this.btn_pathcheck.TabIndex = 4;
@@ -83,19 +86,48 @@ namespace WinsFormsAppPicMix
             this.btn_pathcheck.UseVisualStyleBackColor = true;
             this.btn_pathcheck.Click += new System.EventHandler(this.btn_pathcheck_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(34, 37);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(67, 15);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "讀取位置";
+            // 
+            // txtbx_pathread
+            // 
+            this.txtbx_pathread.Location = new System.Drawing.Point(107, 37);
+            this.txtbx_pathread.Name = "txtbx_pathread";
+            this.txtbx_pathread.Size = new System.Drawing.Size(387, 25);
+            this.txtbx_pathread.TabIndex = 6;
+            // 
+            // btn_viewpathread
+            // 
+            this.btn_viewpathread.Location = new System.Drawing.Point(503, 34);
+            this.btn_viewpathread.Name = "btn_viewpathread";
+            this.btn_viewpathread.Size = new System.Drawing.Size(104, 32);
+            this.btn_viewpathread.TabIndex = 7;
+            this.btn_viewpathread.Text = "瀏覽";
+            this.btn_viewpathread.UseVisualStyleBackColor = true;
+            this.btn_viewpathread.Click += new System.EventHandler(this.btn_viewpathread_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 562);
+            this.Controls.Add(this.btn_viewpathread);
+            this.Controls.Add(this.txtbx_pathread);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.btn_pathcheck);
-            this.Controls.Add(this.btn_view);
-            this.Controls.Add(this.txtbx_path);
+            this.Controls.Add(this.btn_viewpathsave);
+            this.Controls.Add(this.txtbx_pathsave);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "\\";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -106,9 +138,12 @@ namespace WinsFormsAppPicMix
 
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtbx_path;
-        private System.Windows.Forms.Button btn_view;
+        private System.Windows.Forms.TextBox txtbx_pathsave;
+        private System.Windows.Forms.Button btn_viewpathsave;
         private System.Windows.Forms.Button btn_pathcheck;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtbx_pathread;
+        private System.Windows.Forms.Button btn_viewpathread;
     }
 }
 
