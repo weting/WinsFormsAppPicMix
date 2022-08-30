@@ -102,28 +102,38 @@ namespace WinsFormsAppPicMix
 
         private void picwatcher()
         {
-            var watcher = new FileSystemWatcher(@"D:\阿立圓山\picture");
+            MessageBox.Show("path_read:"+path_read+"\n"
+                           +"path_save:"+path_save);
+            
+            /*@"D:\阿立圓山\picture"*/
+            try {
+                var watcher = new FileSystemWatcher(path_read);
 
-            watcher.NotifyFilter = NotifyFilters.Attributes
-                                 | NotifyFilters.CreationTime
-                                 | NotifyFilters.DirectoryName
-                                 | NotifyFilters.FileName
-                                 | NotifyFilters.LastWrite
-                                 | NotifyFilters.Security
-                                 | NotifyFilters.Size;
-            //| NotifyFilters.LastAccess
-            watcher.Changed += OnChanged;
-            watcher.Created += OnCreated;
-            watcher.Deleted += OnDeleted;
-            watcher.Renamed += OnRenamed;
-            watcher.Error += OnError;
+                watcher.NotifyFilter = NotifyFilters.Attributes
+                                     | NotifyFilters.CreationTime
+                                     | NotifyFilters.DirectoryName
+                                     | NotifyFilters.FileName
+                                     | NotifyFilters.LastWrite
+                                     | NotifyFilters.Security
+                                     | NotifyFilters.Size;
 
-            watcher.Filter = "";
-            watcher.IncludeSubdirectories = true;
-            watcher.EnableRaisingEvents = true;
+                //| NotifyFilters.LastAccess
+                watcher.Changed += OnChanged;
+                watcher.Created += OnCreated;
+                watcher.Deleted += OnDeleted;
+                watcher.Renamed += OnRenamed;
+                watcher.Error += OnError;
 
-            //Console.WriteLine("Press enter to exit.");
-            //Console.ReadLine();
+                watcher.Filter = "";
+                watcher.IncludeSubdirectories = true;
+                watcher.EnableRaisingEvents = true;
+            }
+            catch(Exception ex)
+            {
+                var stream_writer = new StreamWriter(@".\document\error.txt");
+                stream_writer.WriteLine(ex.ToString());
+                stream_writer.Close();
+            }
         }
         /*Watcher OnChanged 有機會跑好幾次 因為檔案的屬性只要被修改也會跑 OnChanged 就算你只有寫入一次檔案*/
         private static void OnChanged(object sender, FileSystemEventArgs e)
@@ -1896,42 +1906,39 @@ namespace WinsFormsAppPicMix
 
         private void button1_Click(object sender, EventArgs e)
         {
+            path_save = txtbx_pathsave.Text;
+            path_read = txtbx_pathread.Text;
             picwatcher();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //原路徑讀取
+      
+            if(!Directory.Exists(@".\document\")) Directory.CreateDirectory(@".\document\");
+            if (!Directory.Exists(@".\picture\")) Directory.CreateDirectory(@".\picture\");
+            if (!Directory.Exists(@".\source\")) Directory.CreateDirectory(@".\source\");
+            if (!File.Exists(@".\document\error.txt")) File.Create(@".\document\error.txt");
+            if (!File.Exists(@".\document\pathread.txt")) File.Create(@".\document\pathread.txt");
+            if (!File.Exists(@".\document\pathsave.txt")) File.Create(@".\document\pathsave.txt");
+
             try
             {
                 var stream_reader = new StreamReader(@".\document\pathsave.txt");
-                if (stream_reader == null)
-                {
-                    Directory.CreateDirectory(@".\document\");
-                }
-                else
-                {
-                    txtbx_pathsave.Text = stream_reader.ReadToEnd();
-                }
-                stream_reader.Close();
-
-                stream_reader = new StreamReader(@".\document\pathread.txt");
-                if (stream_reader == null)
-                {
-                    Directory.CreateDirectory(@".\document\");
-                }
+                txtbx_pathsave.Text = stream_reader.ReadToEnd();
                 
+                stream_reader = new StreamReader(@".\document\pathread.txt");              
                 txtbx_pathread.Text = stream_reader.ReadToEnd();
-                
                 stream_reader.Close();
             }
             catch(Exception ex)
-            {
+            { 
                 Console.WriteLine(ex.ToString());
                 var stream_writer = new StreamWriter(@".\document\error.txt");
                 stream_writer.WriteLine(ex.ToString());
-                stream_writer.Close(); stream_writer.Close();
+                stream_writer.Flush();
+                stream_writer.Close(); 
             }
+
             //建立基本資料夾
             try
             {
@@ -1941,7 +1948,7 @@ namespace WinsFormsAppPicMix
                 }
                 else
                 {
-                    for (int i = 0; i < 40; i++)
+                    for (int i = 0; i < 39; i++)
                     {
                         if (!Directory.Exists(@".\picture\" + factory[i]))
                         {
@@ -1966,7 +1973,7 @@ namespace WinsFormsAppPicMix
                     Console.WriteLine(ex.ToString());
                     var stream_writer = new StreamWriter(@".\document\error.txt");
                     stream_writer.WriteLine(ex.ToString());
-                    stream_writer.Close();stream_writer.Close();
+                    stream_writer.Close();
                 }
             }
 
@@ -1977,7 +1984,7 @@ namespace WinsFormsAppPicMix
                     Directory.CreateDirectory(@".\source\");
                 }
                 
-                
+         
                 //針對Arnold LOGO 去調整
                 Image ori_arnold = Image.FromFile(path_sourcepic+"Arnold.png");
                 Bitmap ori_bmp = new System.Drawing.Bitmap(ori_arnold);
