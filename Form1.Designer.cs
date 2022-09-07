@@ -29,48 +29,145 @@ namespace WinsFormsAppPicMix
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtbx_pathsave = new System.Windows.Forms.TextBox();
+            this.btn_viewpathsave = new System.Windows.Forms.Button();
+            this.btn_pathcheck = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtbx_pathread = new System.Windows.Forms.TextBox();
+            this.btn_viewpathread = new System.Windows.Forms.Button();
+            this.ntfybtn = new System.Windows.Forms.NotifyIcon(this.components);
+
+
+
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(31, 162);
+
+            this.button1.Location = new System.Drawing.Point(890, 419);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
+
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(223, 131);
+            this.button1.Size = new System.Drawing.Size(133, 43);
             this.button1.TabIndex = 0;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // pictureBox1
+
+            // label1
             // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.pictureBox1.Location = new System.Drawing.Point(260, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(748, 509);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(34, 71);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(67, 15);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "儲存路徑";
+            // 
+            // txtbx_pathsave
+            // 
+            this.txtbx_pathsave.Location = new System.Drawing.Point(107, 71);
+            this.txtbx_pathsave.Name = "txtbx_pathsave";
+            this.txtbx_pathsave.Size = new System.Drawing.Size(387, 25);
+            this.txtbx_pathsave.TabIndex = 2;
+            // 
+            // btn_viewpathsave
+            // 
+            this.btn_viewpathsave.Location = new System.Drawing.Point(503, 71);
+            this.btn_viewpathsave.Name = "btn_viewpathsave";
+            this.btn_viewpathsave.Size = new System.Drawing.Size(104, 32);
+            this.btn_viewpathsave.TabIndex = 3;
+            this.btn_viewpathsave.Text = "瀏覽";
+            this.btn_viewpathsave.UseVisualStyleBackColor = true;
+            this.btn_viewpathsave.Click += new System.EventHandler(this.btnview_Click);
+            // 
+            // btn_pathcheck
+            // 
+            this.btn_pathcheck.Location = new System.Drawing.Point(613, 68);
+            this.btn_pathcheck.Name = "btn_pathcheck";
+            this.btn_pathcheck.Size = new System.Drawing.Size(89, 32);
+            this.btn_pathcheck.TabIndex = 4;
+            this.btn_pathcheck.Text = "確認";
+            this.btn_pathcheck.UseVisualStyleBackColor = true;
+            this.btn_pathcheck.Click += new System.EventHandler(this.btn_pathcheck_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(34, 37);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(67, 15);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "讀取位置";
+            // 
+            // txtbx_pathread
+            // 
+            this.txtbx_pathread.Location = new System.Drawing.Point(107, 37);
+            this.txtbx_pathread.Name = "txtbx_pathread";
+            this.txtbx_pathread.Size = new System.Drawing.Size(387, 25);
+            this.txtbx_pathread.TabIndex = 6;
+            // 
+            // btn_viewpathread
+            // 
+            this.btn_viewpathread.Location = new System.Drawing.Point(503, 34);
+            this.btn_viewpathread.Name = "btn_viewpathread";
+            this.btn_viewpathread.Size = new System.Drawing.Size(104, 32);
+            this.btn_viewpathread.TabIndex = 7;
+            this.btn_viewpathread.Text = "瀏覽";
+            this.btn_viewpathread.UseVisualStyleBackColor = true;
+            this.btn_viewpathread.Click += new System.EventHandler(this.btn_viewpathread_Click);
+            // 
+            // ntfybtn
+            // 
+            this.ntfybtn.Icon = ((System.Drawing.Icon)(resources.GetObject("ntfybtn.Icon")));
+            this.ntfybtn.Text = "PicMixProcess";
+            this.ntfybtn.Visible = true;
+
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1045, 554);
-            this.Controls.Add(this.pictureBox1);
+
+            this.ClientSize = new System.Drawing.Size(1067, 562);
+            this.Controls.Add(this.btn_viewpathread);
+            this.Controls.Add(this.txtbx_pathread);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.btn_pathcheck);
+            this.Controls.Add(this.btn_viewpathsave);
+            this.Controls.Add(this.txtbx_pathsave);
+            this.Controls.Add(this.label1);
+
             this.Controls.Add(this.button1);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
-            this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+
+            this.Text = "PicMix";
+            this.Load += new System.EventHandler(this.Form1_Load);
+
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtbx_pathsave;
+        private System.Windows.Forms.Button btn_viewpathsave;
+        private System.Windows.Forms.Button btn_pathcheck;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtbx_pathread;
+        private System.Windows.Forms.Button btn_viewpathread;
+        private System.Windows.Forms.NotifyIcon ntfybtn;
+
     }
 }
 
