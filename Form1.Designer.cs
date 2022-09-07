@@ -29,6 +29,8 @@ namespace WinsFormsAppPicMix
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtbx_pathsave = new System.Windows.Forms.TextBox();
@@ -37,6 +39,7 @@ namespace WinsFormsAppPicMix
             this.label2 = new System.Windows.Forms.Label();
             this.txtbx_pathread = new System.Windows.Forms.TextBox();
             this.btn_viewpathread = new System.Windows.Forms.Button();
+            this.ntfybtn = new System.Windows.Forms.NotifyIcon(this.components);
             this.SuspendLayout();
             // 
             // button1
@@ -112,6 +115,12 @@ namespace WinsFormsAppPicMix
             this.btn_viewpathread.UseVisualStyleBackColor = true;
             this.btn_viewpathread.Click += new System.EventHandler(this.btn_viewpathread_Click);
             // 
+            // ntfybtn
+            // 
+            this.ntfybtn.Icon = ((System.Drawing.Icon)(resources.GetObject("ntfybtn.Icon")));
+            this.ntfybtn.Text = "PicMixProcess";
+            this.ntfybtn.Visible = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -127,7 +136,7 @@ namespace WinsFormsAppPicMix
             this.Controls.Add(this.button1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
-            this.Text = "\\";
+            this.Text = "PicMix";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -144,6 +153,7 @@ namespace WinsFormsAppPicMix
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtbx_pathread;
         private System.Windows.Forms.Button btn_viewpathread;
+        private System.Windows.Forms.NotifyIcon ntfybtn;
     }
 }
 

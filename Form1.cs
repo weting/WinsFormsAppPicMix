@@ -43,7 +43,7 @@ namespace WinsFormsAppPicMix
         private static string path_sourcepic = @".\LOGO\";
         public Form1()
         {
-
+            InitializeComponent();
             this.components = new System.ComponentModel.Container();
             this.contextmenu1 = new System.Windows.Forms.ContextMenu();
             this.menuitem1 = new System.Windows.Forms.MenuItem();
@@ -61,24 +61,31 @@ namespace WinsFormsAppPicMix
             this.Text = "AutoMixPicture-version 1.1.5";
 
             // Create the NotifyIcon.
-            this.notifyicon1 = new System.Windows.Forms.NotifyIcon(this.components);
+
+            // this.notifyicon1 = new System.Windows.Forms.NotifyIcon(this.components);
 
             // The Icon property sets the icon that will appear
             // in the systray for this application.
-            notifyicon1.Icon = new Icon(SystemIcons.Exclamation, 40, 40);
+
+            //notifyicon1.Icon = new Icon(SystemIcons.Exclamation, 40, 40);
 
             // The ContextMenu property sets the menu that will
             // appear when the systray icon is right clicked.
-            notifyicon1.ContextMenu = this.contextmenu1;
+
+            // notifyicon1.ContextMenu = this.contextmenu1;
 
             // The Text property sets the text that will be displayed,
             // in a tooltip, when the mouse hovers over the systray icon.
-            notifyicon1.Text = "AutoMixPicture-version 1.1.5";
-            notifyicon1.Visible = true;
+            //notifyicon1.Text = "AutoMixPicture-version 1.1.5";
+            //notifyicon1.Visible = true;
 
             // Handle the DoubleClick event to activate the form.
-            notifyicon1.DoubleClick += new System.EventHandler(this.notifyicon1_DoubleClick);
-            InitializeComponent();
+            //notifyicon1.DoubleClick += new System.EventHandler(this.notifyicon1_DoubleClick);
+            
+            ntfybtn.ContextMenu = this.contextmenu1;
+            ntfybtn.Visible = true;
+            ntfybtn.DoubleClick+= new System.EventHandler(this.notifyicon1_DoubleClick);
+            
         }
 
         private void notifyicon1_DoubleClick(object Sender, EventArgs e)
@@ -129,7 +136,8 @@ namespace WinsFormsAppPicMix
             }
             catch (Exception ex)
             {
-                var stream_writer = new StreamWriter(@".\document\error.txt");
+                StreamWriter stream_writer = File.AppendText(@".\document\error.txt");
+                stream_writer.Write(DateTime.Now.ToString());
                 stream_writer.WriteLine(ex.ToString());
                 stream_writer.Close();
             }
@@ -1857,9 +1865,14 @@ namespace WinsFormsAppPicMix
                 }
             }
             catch (Exception ex)
-            {
+            {/*
                 var stream_writer = new StreamWriter(@".\document\error.txt");
                 stream_writer.Write(ex.ToString());
+                stream_writer.Close();
+                */
+                StreamWriter stream_writer = File.AppendText(@".\document\error.txt");
+                stream_writer.Write(DateTime.Now.ToString());
+                stream_writer.WriteLine(ex.ToString());
                 stream_writer.Close();
             }
         }
@@ -1939,7 +1952,8 @@ namespace WinsFormsAppPicMix
             }
             catch (Exception ex)
             {
-                var stream_writer = new StreamWriter(@".\document\error.txt");
+                StreamWriter stream_writer = File.AppendText(@".\document\error.txt");
+                stream_writer.Write(DateTime.Now.ToString());
                 stream_writer.WriteLine(ex.ToString());
                 stream_writer.Close();
             }
@@ -1955,7 +1969,8 @@ namespace WinsFormsAppPicMix
             }
             catch (Exception ex)
             {
-                var stream_writer = new StreamWriter(@".\document\error.txt");
+                StreamWriter stream_writer = File.AppendText(@".\document\error.txt");
+                stream_writer.Write(DateTime.Now.ToString());
                 stream_writer.WriteLine(ex.ToString());
                 stream_writer.Close();
             }
@@ -2245,9 +2260,8 @@ namespace WinsFormsAppPicMix
             }
             catch (Exception ex)
             {
-
-                Console.WriteLine(ex.ToString());
-                var stream_writer = new StreamWriter(@".\document\error.txt");
+                StreamWriter stream_writer = File.AppendText(@".\document\error.txt");
+                stream_writer.Write(DateTime.Now.ToString());
                 stream_writer.WriteLine(ex.ToString());
                 stream_writer.Close();
             }
@@ -2283,8 +2297,8 @@ namespace WinsFormsAppPicMix
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex.ToString());
-                var stream_writer = new StreamWriter(@".\document\error.txt");
+                StreamWriter stream_writer = File.AppendText(@".\document\error.txt");
+                stream_writer.Write(DateTime.Now.ToString());
                 stream_writer.WriteLine(ex.ToString());
                 stream_writer.Close();
             }
@@ -2298,8 +2312,8 @@ namespace WinsFormsAppPicMix
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
-                var stream_writer = new StreamWriter(@".\document\error.txt");
+                StreamWriter stream_writer = File.AppendText(@".\document\error.txt");
+                stream_writer.Write(DateTime.Now.ToString());
                 stream_writer.WriteLine(ex.ToString());
                 stream_writer.Close();
             }
@@ -2319,9 +2333,10 @@ namespace WinsFormsAppPicMix
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
-                var stream_writer = new StreamWriter(@".\document\error.txt");
+                StreamWriter stream_writer = File.AppendText(@".\document\error.txt");
+                stream_writer.Write(DateTime.Now.ToString());
                 stream_writer.WriteLine(ex.ToString());
+                stream_writer.Close();
             }
             try
             {
@@ -2339,9 +2354,10 @@ namespace WinsFormsAppPicMix
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
-                var stream_writer = new StreamWriter(@".\document\error.txt");
+                StreamWriter stream_writer = File.AppendText(@".\document\error.txt");
+                stream_writer.Write(DateTime.Now.ToString());
                 stream_writer.WriteLine(ex.ToString());
+                stream_writer.Close();
             }
         }
     }
