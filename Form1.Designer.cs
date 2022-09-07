@@ -41,10 +41,10 @@ namespace WinsFormsAppPicMix
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(726, 298);
+            this.button1.Location = new System.Drawing.Point(890, 419);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(297, 164);
+            this.button1.Size = new System.Drawing.Size(133, 43);
             this.button1.TabIndex = 0;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;

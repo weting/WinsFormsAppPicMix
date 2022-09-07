@@ -102,9 +102,9 @@ namespace WinsFormsAppPicMix
 
         private void picwatcher()
         {
-           // MessageBox.Show("path_read:"+path_read+"\n"
-           //               +"path_save:"+path_save);
-            
+            // MessageBox.Show("path_read:"+path_read+"\n"
+            //               +"path_save:"+path_save);
+
             /*@"D:\阿立圓山\picture"*/
             try {
                 var watcher = new FileSystemWatcher(path_read);
@@ -128,7 +128,7 @@ namespace WinsFormsAppPicMix
                 watcher.IncludeSubdirectories = true;
                 watcher.EnableRaisingEvents = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 var stream_writer = new StreamWriter(@".\document\error.txt");
                 stream_writer.WriteLine(ex.ToString());
@@ -138,7 +138,7 @@ namespace WinsFormsAppPicMix
         /*Watcher OnChanged 有機會跑好幾次 因為檔案的屬性只要被修改也會跑 OnChanged 就算你只有寫入一次檔案*/
         private static void OnChanged(object sender, FileSystemEventArgs e)
         {
-            
+
             if (e.ChangeType != WatcherChangeTypes.Changed)
             {
                 return;
@@ -150,8 +150,8 @@ namespace WinsFormsAppPicMix
                 {
                     MessageBox.Show("e:" + e.Name + "\n" + "e.FullPath" + e.FullPath);
                     Image ori_pic = Image.FromFile(e.FullPath.ToString());
-                    Image logo = Image.FromFile(@".\source\"+"final_arnold.jpg");
-                    Image logo_mj = Image.FromFile(@".\source\"+"final_mjmodel.jpg");
+                    Image logo = Image.FromFile(@".\source\" + "final_arnold.jpg");
+                    Image logo_mj = Image.FromFile(@".\source\" + "final_mjmodel.jpg");
                     Image mix_pic;
 
                     //原圖大小
@@ -193,7 +193,7 @@ namespace WinsFormsAppPicMix
                 else if (e.FullPath.ToString().Contains("Artitec"))
                 {
                     Image ori_pic = Image.FromFile(e.FullPath.ToString());
-                    Image logo = Image.FromFile(@".\source\"+"final_artitec.jpg");
+                    Image logo = Image.FromFile(@".\source\" + "final_artitec.jpg");
                     Image logo_mj = Image.FromFile(@".\source\" + "final_mjmodel.jpg");
                     Image mix_pic;
 
@@ -233,7 +233,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
                     Console.WriteLine("testc:" + path_save + e.Name.ToString().Remove(0, 7));
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 7));
-                    
+
                 }
                 else if (e.FullPath.ToString().Contains("Bachmann"))
                 {
@@ -1913,358 +1913,360 @@ namespace WinsFormsAppPicMix
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            if (!Directory.Exists(@".\document\")) { Directory.CreateDirectory(@".\document\");
-                if (!Directory.Exists(@".\picture\")) Directory.CreateDirectory(@".\picture\");
-                if (!Directory.Exists(@".\source\")) Directory.CreateDirectory(@".\source\");
-                if (!File.Exists(@".\document\error.txt")) {
-                    using (FileStream fs = File.Create(@".\document\error.txt"))
-                    {
-                        fs.Close();
-                    }
-                }
-                if (!File.Exists(@".\document\pathread.txt")) {
-                    using (FileStream fs = File.Create(@".\document\pathread.txt"))
-                    {
-                        fs.Close();
-                    }
-                }
-
-                if (!File.Exists(@".\document\pathsave.txt")) {
-                    using (FileStream fs = File.Create(@".\document\pathsave.txt")) { 
-                        fs.Close();
-                    }
-                }
-
-                try
+            if (!Directory.Exists(@".\document\")) Directory.CreateDirectory(@".\document\");
+            if (!Directory.Exists(@".\picture\")) Directory.CreateDirectory(@".\picture\");
+            if (!Directory.Exists(@".\source\")) Directory.CreateDirectory(@".\source\");
+            if (!File.Exists(@".\document\error.txt"))
+            {
+                using (FileStream fs = File.Create(@".\document\error.txt"))
                 {
-                    var stream_reader = new StreamReader(@".\document\pathsave.txt");
-                    txtbx_pathsave.Text = stream_reader.ReadToEnd();
-
-                    stream_reader = new StreamReader(@".\document\pathread.txt");
-                    txtbx_pathread.Text = stream_reader.ReadToEnd();
-                    stream_reader.Close();
-                    stream_reader.Dispose();
+                    fs.Close();
                 }
-                catch (Exception ex)
+            }
+            if (!File.Exists(@".\document\pathread.txt"))
+            {
+                using (FileStream fs = File.Create(@".\document\pathread.txt"))
+                {
+                    fs.Close();
+                }
+            }
+
+            if (!File.Exists(@".\document\pathsave.txt"))
+            {
+                using (FileStream fs = File.Create(@".\document\pathsave.txt"))
+                {
+                    fs.Close();
+                }
+            }
+
+            try
+            {
+                var stream_reader = new StreamReader(@".\document\pathsave.txt");
+                txtbx_pathsave.Text = stream_reader.ReadToEnd();
+
+                stream_reader = new StreamReader(@".\document\pathread.txt");
+                txtbx_pathread.Text = stream_reader.ReadToEnd();
+                stream_reader.Close();
+                stream_reader.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                var stream_writer = new StreamWriter(@".\document\error.txt");
+                stream_writer.WriteLine(ex.ToString());
+                stream_writer.Close();
+
+            }
+            try
+            {
+                if (!Directory.Exists(@"../source"))
+                {
+                    Directory.CreateDirectory(@".\source\");
+                }
+
+
+                //針對Arnold LOGO 去調整
+                Image ori_arnold = Image.FromFile(path_sourcepic + "Arnold.png");
+                Bitmap ori_bmp = new System.Drawing.Bitmap(ori_arnold);
+                Rectangle logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
+                Image cut_area = ori_bmp.Clone(logo_area, ori_arnold.PixelFormat);
+                cut_area.Save(@".\source\final_arnold.jpg");
+
+                logo_area = new System.Drawing.Rectangle(3000, 1750, 1200, 220);
+                cut_area = ori_bmp.Clone(logo_area, ori_arnold.PixelFormat);
+                cut_area.Save(@".\source\final_mjmodel.jpg");
+
+                //Artiec 
+                Image ori_artitec = Image.FromFile(path_sourcepic + "Artitec.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_artitec);
+                logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_artitec.PixelFormat);
+                cut_area.Save(@".\source\final_artitec.jpg");
+
+                //Bachmann
+                Image ori_bachmann = Image.FromFile(path_sourcepic + "Bachmann.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_bachmann);
+                logo_area = new System.Drawing.Rectangle(50, 50, 600, 600);
+                cut_area = ori_bmp.Clone(logo_area, ori_bachmann.PixelFormat);
+                cut_area.Save(@".\source\final_bachmann.jpg");
+
+                //BLI
+                Image ori_bli = Image.FromFile(path_sourcepic + "BLI.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_bli);
+                logo_area = new System.Drawing.Rectangle(50, 50, 500, 350);
+                cut_area = ori_bmp.Clone(logo_area, ori_bli.PixelFormat);
+                cut_area.Save(@".\source\final_bli.jpg");
+
+                //Brawa
+                Image ori_brawa = Image.FromFile(path_sourcepic + "Brawa.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_brawa);
+                logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_brawa.PixelFormat);
+                cut_area.Save(@".\source\final_brawa.jpg");
+
+                //Busch
+                Image ori_busch = Image.FromFile(path_sourcepic + "Busch.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_busch);
+                logo_area = new System.Drawing.Rectangle(50, 50, 450, 450);
+                cut_area = ori_bmp.Clone(logo_area, ori_busch.PixelFormat);
+                cut_area.Save(@".\source\final_busch.jpg");
+
+                //Digitrax
+                Image ori_digitrax = Image.FromFile(path_sourcepic + "Digitrax.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_digitrax);
+                logo_area = new System.Drawing.Rectangle(50, 50, 700, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_digitrax.PixelFormat);
+                cut_area.Save(@".\source\final_digitrax.jpg");
+
+                //Electrotren
+                Image ori_electrotren = Image.FromFile(path_sourcepic + "Electrotren.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_electrotren);
+                logo_area = new System.Drawing.Rectangle(50, 50, 1300, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_electrotren.PixelFormat);
+                cut_area.Save(@".\source\final_electrotren.jpg");
+
+                //ESU
+                Image ori_esu = Image.FromFile(path_sourcepic + "ESU.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_esu);
+                logo_area = new System.Drawing.Rectangle(50, 50, 400, 400);
+                cut_area = ori_bmp.Clone(logo_area, ori_esu.PixelFormat);
+                cut_area.Save(@".\source\final_esu.jpg");
+
+                //Faller
+                Image ori_faller = Image.FromFile(path_sourcepic + "Faller.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_faller);
+                logo_area = new System.Drawing.Rectangle(50, 50, 1000, 350);
+                cut_area = ori_bmp.Clone(logo_area, ori_faller.PixelFormat);
+                cut_area.Save(@".\source\final_faller.jpg");
+
+                //Fleischmann
+                Image ori_fleischmann = Image.FromFile(path_sourcepic + "Fleischmann.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_fleischmann);
+                logo_area = new System.Drawing.Rectangle(50, 50, 1100, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_fleischmann.PixelFormat);
+                cut_area.Save(@".\source\final_fleischmann.jpg");
+
+                //Greenmax
+                Image ori_greenmax = Image.FromFile(path_sourcepic + "Greenmax.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_greenmax);
+                logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_greenmax.PixelFormat);
+                cut_area.Save(@".\source\final_greenmax.jpg");
+
+                //Hornby
+                Image ori_hornby = Image.FromFile(path_sourcepic + "Hornby.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_hornby);
+                logo_area = new System.Drawing.Rectangle(50, 50, 1000, 350);
+                cut_area = ori_bmp.Clone(logo_area, ori_hornby.PixelFormat);
+                cut_area.Save(@".\source\final_hornby.jpg");
+
+                //Humbrol
+                Image ori_humbrol = Image.FromFile(path_sourcepic + "Humbrol.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_humbrol);
+                logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_humbrol.PixelFormat);
+                cut_area.Save(@".\source\final_humbrol.jpg");
+
+                //Jouef
+                Image ori_jouef = Image.FromFile(path_sourcepic + "Jouef.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_jouef);
+                logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_jouef.PixelFormat);
+                cut_area.Save(@".\source\final_jouef.jpg");
+
+                //Kadee
+                Image ori_kadee = Image.FromFile(path_sourcepic + "Kadee.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_kadee);
+                logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_kadee.PixelFormat);
+                cut_area.Save(@".\source\final_kadee.jpg");
+
+                //Kato
+                Image ori_kato = Image.FromFile(path_sourcepic + "Kato.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_kato);
+                logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_kato.PixelFormat);
+                cut_area.Save(@".\source\final_kato.jpg");
+
+                //Kibri
+                Image ori_kibri = Image.FromFile(path_sourcepic + "kibri.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_kibri);
+                logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_kibri.PixelFormat);
+                cut_area.Save(@".\source\final_kibri.jpg");
+
+                //LGB
+                Image ori_lgb = Image.FromFile(path_sourcepic + "LGB.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_lgb);
+                logo_area = new System.Drawing.Rectangle(50, 50, 500, 400);
+                cut_area = ori_bmp.Clone(logo_area, ori_lgb.PixelFormat);
+                cut_area.Save(@".\source\final_lgb.jpg");
+
+                //Lima
+                Image ori_lima = Image.FromFile(path_sourcepic + "Lima.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_lima);
+                logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_lima.PixelFormat);
+                cut_area.Save(@".\source\final_lima.jpg");
+
+                //Marklin
+                Image ori_marklin = Image.FromFile(path_sourcepic + "marklin.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_marklin);
+                logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_marklin.PixelFormat);
+                cut_area.Save(@".\source\final_marklin.jpg");
+
+                //Micro Structure
+                Image ori_microstructure = Image.FromFile(path_sourcepic + "Micro Structures.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_microstructure);
+                logo_area = new System.Drawing.Rectangle(50, 50, 1200, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_microstructure.PixelFormat);
+                cut_area.Save(@".\source\final_microstructure.jpg");
+
+                //Model Power
+                Image ori_modelpower = Image.FromFile(path_sourcepic + "Model Power.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_modelpower);
+                logo_area = new System.Drawing.Rectangle(50, 50, 800, 350);
+                cut_area = ori_bmp.Clone(logo_area, ori_modelpower.PixelFormat);
+                cut_area.Save(@".\source\final_modelpower.jpg");
+
+                //Noch
+                Image ori_noch = Image.FromFile(path_sourcepic + "NOCH.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_noch);
+                logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_noch.PixelFormat);
+                cut_area.Save(@".\source\final_noch.jpg");
+
+                //Peco
+                Image ori_peco = Image.FromFile(path_sourcepic + "PECO.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_peco);
+                logo_area = new System.Drawing.Rectangle(50, 50, 500, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_peco.PixelFormat);
+                cut_area.Save(@".\source\final_peco.jpg");
+
+                //Presier
+                Image ori_preiser = Image.FromFile(path_sourcepic + "Preiser.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_preiser);
+                logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_preiser.PixelFormat);
+                cut_area.Save(@".\source\final_preiser.jpg");
+
+                //Rivarossi
+                Image ori_rivarossi = Image.FromFile(path_sourcepic + "Rivarossi.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_rivarossi);
+                logo_area = new System.Drawing.Rectangle(50, 50, 1200, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_rivarossi.PixelFormat);
+                cut_area.Save(@".\source\final_rivarossi.jpg");
+
+                //Roco
+                Image ori_roco = Image.FromFile(path_sourcepic + "Roco.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_roco);
+                logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_roco.PixelFormat);
+                cut_area.Save(@".\source\final_roco.jpg");
+
+                //SceneMaster
+                Image ori_scenemaster = Image.FromFile(path_sourcepic + "Scenemaster.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_scenemaster);
+                logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_scenemaster.PixelFormat);
+                cut_area.Save(@".\source\final_scenemaster.jpg");
+
+                //Spectrum
+                Image ori_spectrum = Image.FromFile(path_sourcepic + "Spectrum.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_spectrum);
+                logo_area = new System.Drawing.Rectangle(50, 50, 800, 350);
+                cut_area = ori_bmp.Clone(logo_area, ori_spectrum.PixelFormat);
+                cut_area.Save(@".\source\final_spectrum.jpg");
+
+                //Tamiya
+                Image ori_tamiya = Image.FromFile(path_sourcepic + "Tamiya.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_tamiya);
+                logo_area = new System.Drawing.Rectangle(50, 50, 800, 350);
+                cut_area = ori_bmp.Clone(logo_area, ori_tamiya.PixelFormat);
+                cut_area.Save(@".\source\final_tamiya.jpg");
+
+                //Tomix
+                Image ori_tomix = Image.FromFile(path_sourcepic + "Tomix.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_tomix);
+                logo_area = new System.Drawing.Rectangle(50, 50, 800, 250);
+                cut_area = ori_bmp.Clone(logo_area, ori_tomix.PixelFormat);
+                cut_area.Save(@".\source\final_tomix.jpg");
+
+                //Tomytec
+                Image ori_tomytec = Image.FromFile(path_sourcepic + "Tomytec.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_tomytec);
+                logo_area = new System.Drawing.Rectangle(50, 50, 800, 250);
+                cut_area = ori_bmp.Clone(logo_area, ori_tomytec.PixelFormat);
+                cut_area.Save(@".\source\final_tomytec.jpg");
+
+                //TouchRail
+                Image ori_touchrail = Image.FromFile(path_sourcepic + "Touchrail.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_touchrail);
+                logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_touchrail.PixelFormat);
+                cut_area.Save(@".\source\final_touchrail.jpg");
+
+                //Trix
+                Image ori_trix = Image.FromFile(path_sourcepic + "Trix.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_trix);
+                logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_trix.PixelFormat);
+                cut_area.Save(@".\source\final_trix.jpg");
+
+                //Viessmann
+                Image ori_viessmann = Image.FromFile(path_sourcepic + "Viessmann.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_viessmann);
+                logo_area = new System.Drawing.Rectangle(50, 50, 600, 400);
+                cut_area = ori_bmp.Clone(logo_area, ori_viessmann.PixelFormat);
+                cut_area.Save(@".\source\final_viessmann.jpg");
+
+                //Vollmer
+                Image ori_vollmer = Image.FromFile(path_sourcepic + "Vollmer.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_vollmer);
+                logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_vollmer.PixelFormat);
+                cut_area.Save(@".\source\final_vollmer.jpg");
+
+                //Walthers
+                Image ori_walthers = Image.FromFile(path_sourcepic + "Walthers.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_walthers);
+                logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_walthers.PixelFormat);
+                cut_area.Save(@".\source\final_walthers.jpg");
+
+                //Woodland
+                Image ori_woodland = Image.FromFile(path_sourcepic + "Woodland.png");
+                ori_bmp = new System.Drawing.Bitmap(ori_woodland);
+                logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
+                cut_area = ori_bmp.Clone(logo_area, ori_woodland.PixelFormat);
+                cut_area.Save(@".\source\final_woodland.jpg");
+
+                Console.WriteLine("Finish");
+
+                GC.Collect();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                if (!Directory.Exists(@".\document\"))
+                {
+                    Directory.CreateDirectory(@".\document\");
+                }
+                else
                 {
                     Console.WriteLine(ex.ToString());
                     var stream_writer = new StreamWriter(@".\document\error.txt");
                     stream_writer.WriteLine(ex.ToString());
                     stream_writer.Close();
-                  
                 }
-
-                
-
-                try
-                {
-                    if (!Directory.Exists(@"../source"))
-                    {
-                        Directory.CreateDirectory(@".\source\");
-                    }
-
-
-                    //針對Arnold LOGO 去調整
-                    Image ori_arnold = Image.FromFile(path_sourcepic + "Arnold.png");
-                    Bitmap ori_bmp = new System.Drawing.Bitmap(ori_arnold);
-                    Rectangle logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
-                    Image cut_area = ori_bmp.Clone(logo_area, ori_arnold.PixelFormat);
-                    cut_area.Save(@".\source\final_arnold.jpg");
-
-                    logo_area = new System.Drawing.Rectangle(3000, 1750, 1200, 220);
-                    cut_area = ori_bmp.Clone(logo_area, ori_arnold.PixelFormat);
-                    cut_area.Save(@".\source\final_mjmodel.jpg");
-
-                    //Artiec 
-                    Image ori_artitec = Image.FromFile(path_sourcepic + "Artitec.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_artitec);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_artitec.PixelFormat);
-                    cut_area.Save(@".\source\final_artitec.jpg");
-
-                    //Bachmann
-                    Image ori_bachmann = Image.FromFile(path_sourcepic + "Bachmann.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_bachmann);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 600, 600);
-                    cut_area = ori_bmp.Clone(logo_area, ori_bachmann.PixelFormat);
-                    cut_area.Save(@".\source\final_bachmann.jpg");
-
-                    //BLI
-                    Image ori_bli = Image.FromFile(path_sourcepic + "BLI.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_bli);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 500, 350);
-                    cut_area = ori_bmp.Clone(logo_area, ori_bli.PixelFormat);
-                    cut_area.Save(@".\source\final_bli.jpg");
-
-                    //Brawa
-                    Image ori_brawa = Image.FromFile(path_sourcepic + "Brawa.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_brawa);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_brawa.PixelFormat);
-                    cut_area.Save(@".\source\final_brawa.jpg");
-
-                    //Busch
-                    Image ori_busch = Image.FromFile(path_sourcepic + "Busch.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_busch);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 450, 450);
-                    cut_area = ori_bmp.Clone(logo_area, ori_busch.PixelFormat);
-                    cut_area.Save(@".\source\final_busch.jpg");
-
-                    //Digitrax
-                    Image ori_digitrax = Image.FromFile(path_sourcepic + "Digitrax.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_digitrax);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 700, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_digitrax.PixelFormat);
-                    cut_area.Save(@".\source\final_digitrax.jpg");
-
-                    //Electrotren
-                    Image ori_electrotren = Image.FromFile(path_sourcepic + "Electrotren.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_electrotren);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 1300, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_electrotren.PixelFormat);
-                    cut_area.Save(@".\source\final_electrotren.jpg");
-
-                    //ESU
-                    Image ori_esu = Image.FromFile(path_sourcepic + "ESU.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_esu);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 400, 400);
-                    cut_area = ori_bmp.Clone(logo_area, ori_esu.PixelFormat);
-                    cut_area.Save(@".\source\final_esu.jpg");
-
-                    //Faller
-                    Image ori_faller = Image.FromFile(path_sourcepic + "Faller.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_faller);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 1000, 350);
-                    cut_area = ori_bmp.Clone(logo_area, ori_faller.PixelFormat);
-                    cut_area.Save(@".\source\final_faller.jpg");
-
-                    //Fleischmann
-                    Image ori_fleischmann = Image.FromFile(path_sourcepic + "Fleischmann.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_fleischmann);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 1100, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_fleischmann.PixelFormat);
-                    cut_area.Save(@".\source\final_fleischmann.jpg");
-
-                    //Greenmax
-                    Image ori_greenmax = Image.FromFile(path_sourcepic + "Greenmax.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_greenmax);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_greenmax.PixelFormat);
-                    cut_area.Save(@".\source\final_greenmax.jpg");
-
-                    //Hornby
-                    Image ori_hornby = Image.FromFile(path_sourcepic + "Hornby.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_hornby);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 1000, 350);
-                    cut_area = ori_bmp.Clone(logo_area, ori_hornby.PixelFormat);
-                    cut_area.Save(@".\source\final_hornby.jpg");
-
-                    //Humbrol
-                    Image ori_humbrol = Image.FromFile(path_sourcepic + "Humbrol.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_humbrol);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_humbrol.PixelFormat);
-                    cut_area.Save(@".\source\final_humbrol.jpg");
-
-                    //Jouef
-                    Image ori_jouef = Image.FromFile(path_sourcepic + "Jouef.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_jouef);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_jouef.PixelFormat);
-                    cut_area.Save(@".\source\final_jouef.jpg");
-
-                    //Kadee
-                    Image ori_kadee = Image.FromFile(path_sourcepic + "Kadee.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_kadee);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_kadee.PixelFormat);
-                    cut_area.Save(@".\source\final_kadee.jpg");
-
-                    //Kato
-                    Image ori_kato = Image.FromFile(path_sourcepic + "Kato.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_kato);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_kato.PixelFormat);
-                    cut_area.Save(@".\source\final_kato.jpg");
-
-                    //Kibri
-                    Image ori_kibri = Image.FromFile(path_sourcepic + "kibri.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_kibri);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_kibri.PixelFormat);
-                    cut_area.Save(@".\source\final_kibri.jpg");
-
-                    //LGB
-                    Image ori_lgb = Image.FromFile(path_sourcepic + "LGB.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_lgb);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 500, 400);
-                    cut_area = ori_bmp.Clone(logo_area, ori_lgb.PixelFormat);
-                    cut_area.Save(@".\source\final_lgb.jpg");
-
-                    //Lima
-                    Image ori_lima = Image.FromFile(path_sourcepic + "Lima.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_lima);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_lima.PixelFormat);
-                    cut_area.Save(@".\source\final_lima.jpg");
-
-                    //Marklin
-                    Image ori_marklin = Image.FromFile(path_sourcepic + "marklin.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_marklin);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_marklin.PixelFormat);
-                    cut_area.Save(@".\source\final_marklin.jpg");
-
-                    //Micro Structure
-                    Image ori_microstructure = Image.FromFile(path_sourcepic + "Micro Structures.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_microstructure);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 1200, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_microstructure.PixelFormat);
-                    cut_area.Save(@".\source\final_microstructure.jpg");
-
-                    //Model Power
-                    Image ori_modelpower = Image.FromFile(path_sourcepic + "Model Power.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_modelpower);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 800, 350);
-                    cut_area = ori_bmp.Clone(logo_area, ori_modelpower.PixelFormat);
-                    cut_area.Save(@".\source\final_modelpower.jpg");
-
-                    //Noch
-                    Image ori_noch = Image.FromFile(path_sourcepic + "NOCH.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_noch);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_noch.PixelFormat);
-                    cut_area.Save(@".\source\final_noch.jpg");
-
-                    //Peco
-                    Image ori_peco = Image.FromFile(path_sourcepic + "PECO.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_peco);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 500, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_peco.PixelFormat);
-                    cut_area.Save(@".\source\final_peco.jpg");
-
-                    //Presier
-                    Image ori_preiser = Image.FromFile(path_sourcepic + "Preiser.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_preiser);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_preiser.PixelFormat);
-                    cut_area.Save(@".\source\final_preiser.jpg");
-
-                    //Rivarossi
-                    Image ori_rivarossi = Image.FromFile(path_sourcepic + "Rivarossi.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_rivarossi);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 1200, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_rivarossi.PixelFormat);
-                    cut_area.Save(@".\source\final_rivarossi.jpg");
-
-                    //Roco
-                    Image ori_roco = Image.FromFile(path_sourcepic + "Roco.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_roco);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_roco.PixelFormat);
-                    cut_area.Save(@".\source\final_roco.jpg");
-
-                    //SceneMaster
-                    Image ori_scenemaster = Image.FromFile(path_sourcepic + "Scenemaster.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_scenemaster);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_scenemaster.PixelFormat);
-                    cut_area.Save(@".\source\final_scenemaster.jpg");
-
-                    //Spectrum
-                    Image ori_spectrum = Image.FromFile(path_sourcepic + "Spectrum.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_spectrum);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 800, 350);
-                    cut_area = ori_bmp.Clone(logo_area, ori_spectrum.PixelFormat);
-                    cut_area.Save(@".\source\final_spectrum.jpg");
-
-                    //Tamiya
-                    Image ori_tamiya = Image.FromFile(path_sourcepic + "Tamiya.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_tamiya);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 800, 350);
-                    cut_area = ori_bmp.Clone(logo_area, ori_tamiya.PixelFormat);
-                    cut_area.Save(@".\source\final_tamiya.jpg");
-
-                    //Tomix
-                    Image ori_tomix = Image.FromFile(path_sourcepic + "Tomix.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_tomix);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 800, 250);
-                    cut_area = ori_bmp.Clone(logo_area, ori_tomix.PixelFormat);
-                    cut_area.Save(@".\source\final_tomix.jpg");
-
-                    //Tomytec
-                    Image ori_tomytec = Image.FromFile(path_sourcepic + "Tomytec.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_tomytec);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 800, 250);
-                    cut_area = ori_bmp.Clone(logo_area, ori_tomytec.PixelFormat);
-                    cut_area.Save(@".\source\final_tomytec.jpg");
-
-                    //TouchRail
-                    Image ori_touchrail = Image.FromFile(path_sourcepic + "Touchrail.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_touchrail);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_touchrail.PixelFormat);
-                    cut_area.Save(@".\source\final_touchrail.jpg");
-
-                    //Trix
-                    Image ori_trix = Image.FromFile(path_sourcepic + "Trix.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_trix);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_trix.PixelFormat);
-                    cut_area.Save(@".\source\final_trix.jpg");
-
-                    //Viessmann
-                    Image ori_viessmann = Image.FromFile(path_sourcepic + "Viessmann.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_viessmann);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 600, 400);
-                    cut_area = ori_bmp.Clone(logo_area, ori_viessmann.PixelFormat);
-                    cut_area.Save(@".\source\final_viessmann.jpg");
-
-                    //Vollmer
-                    Image ori_vollmer = Image.FromFile(path_sourcepic + "Vollmer.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_vollmer);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_vollmer.PixelFormat);
-                    cut_area.Save(@".\source\final_vollmer.jpg");
-
-                    //Walthers
-                    Image ori_walthers = Image.FromFile(path_sourcepic + "Walthers.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_walthers);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 1000, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_walthers.PixelFormat);
-                    cut_area.Save(@".\source\final_walthers.jpg");
-
-                    //Woodland
-                    Image ori_woodland = Image.FromFile(path_sourcepic + "Woodland.png");
-                    ori_bmp = new System.Drawing.Bitmap(ori_woodland);
-                    logo_area = new System.Drawing.Rectangle(50, 50, 800, 300);
-                    cut_area = ori_bmp.Clone(logo_area, ori_woodland.PixelFormat);
-                    cut_area.Save(@".\source\final_woodland.jpg");
-
-                    Console.WriteLine("Finish");
-
-                    GC.Collect();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                    if (!Directory.Exists(@".\document\"))
-                    {
-                        Directory.CreateDirectory(@".\document\");
-                    }
-                    else
-                    {
-                        Console.WriteLine(ex.ToString());
-                        var stream_writer = new StreamWriter(@".\document\error.txt");
-                        stream_writer.WriteLine(ex.ToString());
-                        stream_writer.Close();
-                    }
-                }
-
             }
+
+
             txtbx_pathread.Text = path_read;
             txtbx_pathsave.Text = path_save;
         }
+    
        
         private void btnview_Click(object sender, EventArgs e)
         {
