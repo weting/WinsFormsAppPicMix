@@ -18,7 +18,6 @@ namespace WinsFormsAppPicMix
         private System.Windows.Forms.NotifyIcon notifyicon1;
         private System.Windows.Forms.ContextMenu contextmenu1;
         private System.Windows.Forms.MenuItem menuitem1;
-        private System.Windows.Forms.TextBox txtbx1;
 
         static int width_pic = 0;
         static int height_pic = 0;
@@ -30,9 +29,9 @@ namespace WinsFormsAppPicMix
         static double zoom_mj = 1;
         static string[] factory = { "Arnold", "Artitec", "Bachmann", "BLI",
                                     "Brawa", "Busch", "Digitrax", "Electrotren",
-                                    "ESU","Faller","Flesichmann","Greenmax",
-                                    "Hornby","Humbrol","Jouef","Kadee",
-                                    "Kato","Kibri","LGB", "Lima",
+                                    "ESU", "Faller", "Flesichmann", "Greenmax",
+                                    "Hornby", "Humbrol", "Jouef", "Kadee",
+                                    "Kato", "Kibri", "LGB", "Lima",
                                     "Marklin", "Micro Structures", "Model Power",
                                     "Noch", "Peco", "Preiser", "Rivarossi",
                                     "Roco", "Scenemaster", "Spectrum", "Tamiya",
@@ -139,6 +138,7 @@ namespace WinsFormsAppPicMix
         private static void OnChanged(object sender, FileSystemEventArgs e)
         {
 
+            Console.WriteLine("ONCHANGED");
             if (e.ChangeType != WatcherChangeTypes.Changed)
             {
                 return;
@@ -148,7 +148,8 @@ namespace WinsFormsAppPicMix
             {
                 if (e.FullPath.ToString().Contains("Arnold"))
                 {
-                    MessageBox.Show("e:" + e.Name + "\n" + "e.FullPath" + e.FullPath);
+                    //要調整路徑
+                    //MessageBox.Show("e:" + e.Name + "\n" + "e.FullPath" + e.FullPath);
                     Image ori_pic = Image.FromFile(e.FullPath.ToString());
                     Image logo = Image.FromFile(@".\source\" + "final_arnold.jpg");
                     Image logo_mj = Image.FromFile(@".\source\" + "final_mjmodel.jpg");
@@ -188,6 +189,7 @@ namespace WinsFormsAppPicMix
                     graphics.DrawImage(ori_pic, 0, 0, width_pic, height_pic);
                     graphics.DrawImage(logo, 0, 0, Convert.ToSingle(widthinpic), Convert.ToSingle(heightinpic));
                     graphics.DrawImage(logo_mj, Convert.ToSingle(width_pic - widthinpicmj), Convert.ToSingle(height_pic - heightinpicmj), Convert.ToSingle(widthinpicmj), Convert.ToSingle(heightinpicmj));
+                    Console.WriteLine(path_save + e.Name.ToString().Remove(0, 6));
                     mix_pic.Save(path_save + e.Name.ToString().Remove(0, 6));
                 }
                 else if (e.FullPath.ToString().Contains("Artitec"))
@@ -1856,18 +1858,9 @@ namespace WinsFormsAppPicMix
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
-                if (!Directory.Exists(@".\document\"))
-                {
-                    Directory.CreateDirectory(@".\document\");
-                }
-                else
-                {
-                    Console.WriteLine(ex.ToString());
-                    var stream_writer = new StreamWriter(@".\document\error.txt");
-                    stream_writer.WriteLine(ex.ToString());
-                    stream_writer.Close();
-                }
+                var stream_writer = new StreamWriter(@".\document\error.txt");
+                stream_writer.Write(ex.ToString());
+                stream_writer.Close();
             }
         }
 
@@ -1905,8 +1898,6 @@ namespace WinsFormsAppPicMix
 
         private void button1_Click(object sender, EventArgs e)
         {
-            path_save = txtbx_pathsave.Text;
-            path_read = txtbx_pathread.Text;
             picwatcher();
         }
 
@@ -1914,7 +1905,6 @@ namespace WinsFormsAppPicMix
         {
 
             if (!Directory.Exists(@".\document\")) Directory.CreateDirectory(@".\document\");
-            if (!Directory.Exists(@".\picture\")) Directory.CreateDirectory(@".\picture\");
             if (!Directory.Exists(@".\source\")) Directory.CreateDirectory(@".\source\");
             if (!File.Exists(@".\document\error.txt"))
             {
@@ -1942,29 +1932,36 @@ namespace WinsFormsAppPicMix
             try
             {
                 var stream_reader = new StreamReader(@".\document\pathsave.txt");
-                txtbx_pathsave.Text = stream_reader.ReadToEnd();
-
-                stream_reader = new StreamReader(@".\document\pathread.txt");
-                txtbx_pathread.Text = stream_reader.ReadToEnd();
+                txtbx_pathsave.Text = stream_reader.ReadLine();
+                path_save = txtbx_pathsave.Text;
                 stream_reader.Close();
                 stream_reader.Dispose();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
                 var stream_writer = new StreamWriter(@".\document\error.txt");
                 stream_writer.WriteLine(ex.ToString());
                 stream_writer.Close();
-
             }
+
+            try
+            { 
+                var stream_reader = new StreamReader(@".\document\pathread.txt");
+                txtbx_pathread.Text = stream_reader.ReadLine();
+                path_read = txtbx_pathread.Text;
+                Console.WriteLine(path_read);
+                stream_reader.Close();
+                stream_reader.Dispose();
+            }
+            catch (Exception ex)
+            {
+                var stream_writer = new StreamWriter(@".\document\error.txt");
+                stream_writer.WriteLine(ex.ToString());
+                stream_writer.Close();
+            }
+
             try
             {
-                if (!Directory.Exists(@"../source"))
-                {
-                    Directory.CreateDirectory(@".\source\");
-                }
-
-
                 //針對Arnold LOGO 去調整
                 Image ori_arnold = Image.FromFile(path_sourcepic + "Arnold.png");
                 Bitmap ori_bmp = new System.Drawing.Bitmap(ori_arnold);
@@ -2248,21 +2245,12 @@ namespace WinsFormsAppPicMix
             }
             catch (Exception ex)
             {
+
                 Console.WriteLine(ex.ToString());
-                if (!Directory.Exists(@".\document\"))
-                {
-                    Directory.CreateDirectory(@".\document\");
-                }
-                else
-                {
-                    Console.WriteLine(ex.ToString());
-                    var stream_writer = new StreamWriter(@".\document\error.txt");
-                    stream_writer.WriteLine(ex.ToString());
-                    stream_writer.Close();
-                }
+                var stream_writer = new StreamWriter(@".\document\error.txt");
+                stream_writer.WriteLine(ex.ToString());
+                stream_writer.Close();
             }
-
-
             txtbx_pathread.Text = path_read;
             txtbx_pathsave.Text = path_save;
         }
@@ -2315,16 +2303,33 @@ namespace WinsFormsAppPicMix
                 stream_writer.WriteLine(ex.ToString());
                 stream_writer.Close();
             }
+            
             path_save = txtbx_pathsave.Text;
             path_read = txtbx_pathread.Text;
+
             //建立基本資料夾
+
+            try
+            {
+                if (!Directory.Exists(path_read + @"\picture"))
+                {
+                    Directory.CreateDirectory(path_read + @"\picture\");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                var stream_writer = new StreamWriter(@".\document\error.txt");
+                stream_writer.WriteLine(ex.ToString());
+            }
             try
             {
                 for (int i = 0; i < 39; i++)
                 {
-                    if (!Directory.Exists(path_read + "\\picture\\" + factory[i]))
+                    if (!Directory.Exists(path_read+@"\picture\" + factory[i]))
                     {
-                        Directory.CreateDirectory(path_read + "\\picture\\" + factory[i]);
+                        Directory.CreateDirectory(path_read+@"\picture\" + factory[i]);
                     }
                     else
                     {
@@ -2334,10 +2339,9 @@ namespace WinsFormsAppPicMix
             }
             catch (Exception ex)
             {
-                    var stream_writer = new StreamWriter(@".\document\error.txt");
-                    stream_writer.WriteLine(ex.ToString());
-                    stream_writer.Close();
-              
+                Console.WriteLine(ex.ToString());
+                var stream_writer = new StreamWriter(@".\document\error.txt");
+                stream_writer.WriteLine(ex.ToString());
             }
         }
     }
