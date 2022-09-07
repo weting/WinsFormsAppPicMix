@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,16 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-
+using System.Drawing.Printing;
 namespace WinsFormsAppPicMix
 {
 
     public partial class Form1 : Form
-    {
-        static int i = 0;
+    {        
         private System.Windows.Forms.NotifyIcon notifyicon1;
         private System.Windows.Forms.ContextMenu contextmenu1;
         private System.Windows.Forms.MenuItem menuitem1;
+
 
         static int width_pic = 0;
         static int height_pic = 0;
@@ -38,6 +38,10 @@ namespace WinsFormsAppPicMix
                                     "Tomix", "Tomytec", "TouchRail", "Trix",
                                     "Viessmann", "Vollmer", "Walthers", "Woodland"};
 
+       
+
+
+
         private static string path_save = @"";
         private static string path_read = @"";
         private static string path_sourcepic = @".\LOGO\";
@@ -57,8 +61,16 @@ namespace WinsFormsAppPicMix
             this.menuitem1.Click += new System.EventHandler(this.menuitem1_Click);
 
             // Set up how the form should be displayed.
+
+
             this.ClientSize = new System.Drawing.Size(292, 266);
             this.Text = "AutoMixPicture-version 1.1.5";
+
+
+
+        
+        
+
 
             // Create the NotifyIcon.
 
@@ -80,12 +92,19 @@ namespace WinsFormsAppPicMix
             //notifyicon1.Visible = true;
 
             // Handle the DoubleClick event to activate the form.
+
+
             //notifyicon1.DoubleClick += new System.EventHandler(this.notifyicon1_DoubleClick);
             
             ntfybtn.ContextMenu = this.contextmenu1;
             ntfybtn.Visible = true;
             ntfybtn.DoubleClick+= new System.EventHandler(this.notifyicon1_DoubleClick);
             
+
+
+           
+
+
         }
 
         private void notifyicon1_DoubleClick(object Sender, EventArgs e)
@@ -108,6 +127,7 @@ namespace WinsFormsAppPicMix
 
         private void picwatcher()
         {
+
             // MessageBox.Show("path_read:"+path_read+"\n"
             //               +"path_save:"+path_save);
 
@@ -151,6 +171,8 @@ namespace WinsFormsAppPicMix
             {
                 return;
             }
+
+
 
             try
             {

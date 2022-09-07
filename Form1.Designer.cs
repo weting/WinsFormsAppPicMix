@@ -32,6 +32,7 @@ namespace WinsFormsAppPicMix
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
+
             this.label1 = new System.Windows.Forms.Label();
             this.txtbx_pathsave = new System.Windows.Forms.TextBox();
             this.btn_viewpathsave = new System.Windows.Forms.Button();
@@ -40,12 +41,17 @@ namespace WinsFormsAppPicMix
             this.txtbx_pathread = new System.Windows.Forms.TextBox();
             this.btn_viewpathread = new System.Windows.Forms.Button();
             this.ntfybtn = new System.Windows.Forms.NotifyIcon(this.components);
+
+
+
             this.SuspendLayout();
             // 
             // button1
             // 
+
             this.button1.Location = new System.Drawing.Point(890, 419);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
+
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(133, 43);
             this.button1.TabIndex = 0;
@@ -53,6 +59,7 @@ namespace WinsFormsAppPicMix
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+
             // label1
             // 
             this.label1.AutoSize = true;
@@ -120,11 +127,13 @@ namespace WinsFormsAppPicMix
             this.ntfybtn.Icon = ((System.Drawing.Icon)(resources.GetObject("ntfybtn.Icon")));
             this.ntfybtn.Text = "PicMixProcess";
             this.ntfybtn.Visible = true;
+
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+
             this.ClientSize = new System.Drawing.Size(1067, 562);
             this.Controls.Add(this.btn_viewpathread);
             this.Controls.Add(this.txtbx_pathread);
@@ -133,11 +142,14 @@ namespace WinsFormsAppPicMix
             this.Controls.Add(this.btn_viewpathsave);
             this.Controls.Add(this.txtbx_pathsave);
             this.Controls.Add(this.label1);
+
             this.Controls.Add(this.button1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
+
             this.Text = "PicMix";
             this.Load += new System.EventHandler(this.Form1_Load);
+
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -146,6 +158,7 @@ namespace WinsFormsAppPicMix
         #endregion
 
         private System.Windows.Forms.Button button1;
+
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtbx_pathsave;
         private System.Windows.Forms.Button btn_viewpathsave;
@@ -154,6 +167,7 @@ namespace WinsFormsAppPicMix
         private System.Windows.Forms.TextBox txtbx_pathread;
         private System.Windows.Forms.Button btn_viewpathread;
         private System.Windows.Forms.NotifyIcon ntfybtn;
+
     }
 }
 
