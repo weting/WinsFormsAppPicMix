@@ -8,13 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-
+using System.Drawing.Printing;
 namespace WinsFormsAppPicMix
 {
 
     public partial class Form1 : Form
-    {
-        static int i = 0;
+    {        
         private System.Windows.Forms.NotifyIcon notifyicon1;
         private System.Windows.Forms.ContextMenu contextmenu1;
         private System.Windows.Forms.MenuItem menuitem1;
