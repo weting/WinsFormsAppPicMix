@@ -40,9 +40,11 @@ namespace WinsFormsAppPicMix
         private static string path_save = @"";
         private static string path_read = @"";
         private static string path_sourcepic = @".\LOGO\";
+
         public Form1()
         {
             InitializeComponent();
+
             this.components = new System.ComponentModel.Container();
             this.contextmenu1 = new System.Windows.Forms.ContextMenu();
             this.menuitem1 = new System.Windows.Forms.MenuItem();
@@ -56,61 +58,20 @@ namespace WinsFormsAppPicMix
             this.menuitem1.Click += new System.EventHandler(this.menuitem1_Click);
 
             // Set up how the form should be displayed.
-            this.ClientSize = new System.Drawing.Size(292, 266);
             this.Text = "AutoMixPicture-version 1.1.5";
 
-            // Create the NotifyIcon.
-
-            // this.notifyicon1 = new System.Windows.Forms.NotifyIcon(this.components);
-
-            // The Icon property sets the icon that will appear
-            // in the systray for this application.
-
-            //notifyicon1.Icon = new Icon(SystemIcons.Exclamation, 40, 40);
-
-            // The ContextMenu property sets the menu that will
-            // appear when the systray icon is right clicked.
-
-            // notifyicon1.ContextMenu = this.contextmenu1;
-
-            // The Text property sets the text that will be displayed,
-            // in a tooltip, when the mouse hovers over the systray icon.
-            //notifyicon1.Text = "AutoMixPicture-version 1.1.5";
-            //notifyicon1.Visible = true;
-
-            // Handle the DoubleClick event to activate the form.
-            //notifyicon1.DoubleClick += new System.EventHandler(this.notifyicon1_DoubleClick);
-            
             ntfybtn.ContextMenu = this.contextmenu1;
             ntfybtn.Visible = true;
-            ntfybtn.DoubleClick+= new System.EventHandler(this.notifyicon1_DoubleClick);
-            
-        }
-
-        private void notifyicon1_DoubleClick(object Sender, EventArgs e)
-        {
-            // Show the form when the user double clicks on the notify icon.
-
-            // Set the WindowState to normal if the form is minimized.
-            if (this.WindowState == FormWindowState.Minimized)
-                this.WindowState = FormWindowState.Normal;
-
-            // Activate the form.
-            this.Activate();
+            ntfybtn.Text = "AutoMixPicuture-version-2.0.0";
         }
 
         private void menuitem1_Click(object Sender, EventArgs e)
-        {
-            // Close the form, which closes the application.
-            this.Close();
+        {            
+            this.Dispose();
         }
 
         private void picwatcher()
         {
-            // MessageBox.Show("path_read:"+path_read+"\n"
-            //               +"path_save:"+path_save);
-
-            /*@"D:\阿立圓山\picture"*/
             try {
                 var watcher = new FileSystemWatcher(path_read);
 
@@ -122,7 +83,6 @@ namespace WinsFormsAppPicMix
                                      | NotifyFilters.Security
                                      | NotifyFilters.Size;
 
-                //| NotifyFilters.LastAccess
                 watcher.Changed += OnChanged;
                 watcher.Created += OnCreated;
                 watcher.Deleted += OnDeleted;
@@ -141,6 +101,7 @@ namespace WinsFormsAppPicMix
                 stream_writer.Close();
             }
         }
+       
         /*Watcher OnChanged 有機會跑好幾次 因為檔案的屬性只要被修改也會跑 OnChanged 就算你只有寫入一次檔案*/
         private static void OnChanged(object sender, FileSystemEventArgs e)
         {
@@ -2358,6 +2319,24 @@ namespace WinsFormsAppPicMix
                 stream_writer.WriteLine(ex.ToString());
                 stream_writer.Close();
             }
+        }
+
+        private void ntfybtn_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            // Show the form when the user double clicks on the notify icon.
+
+            // Set the WindowState to normal if the form is minimized.
+            if (this.WindowState == FormWindowState.Minimized)
+                this.WindowState = FormWindowState.Normal;
+
+            // Activate the form.
+            this.Activate();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+            e.Cancel = true;
         }
     }
 }
